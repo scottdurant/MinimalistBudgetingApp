@@ -1,1 +1,0 @@
-"Minimalist Budgeting App Readme" 
