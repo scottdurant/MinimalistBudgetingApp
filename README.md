@@ -1,1 +1,1 @@
-"Minimalist Budgeting App Readme" 
+This README will be updated as I work on the project.
