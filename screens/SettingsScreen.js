@@ -5,10 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default function AddPurchaseScreen() {
     return (
         <View style={styles.mainContainer}>
-            <Text> Add a purchase!</Text>
-            <View style={styles.bottomView}>
-                <Button title="Done"/>
-            </View>
+            <Text> Change settings!</Text>
         </View>
     );
 }

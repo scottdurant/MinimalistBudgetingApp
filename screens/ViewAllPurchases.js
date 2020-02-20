@@ -2,13 +2,10 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function AddPurchaseScreen() {
+export default function ViewAllPurchasesScreen() {
     return (
         <View style={styles.mainContainer}>
-            <Text> Add a purchase!</Text>
-            <View style={styles.bottomView}>
-                <Button title="Done"/>
-            </View>
+            <Text> All purchases listed here!</Text>
         </View>
     );
 }

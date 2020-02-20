@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import AddPurchaseScreen from '../screens/AddPurchaseScreen';
+import ViewAllPurchasesScreen from '../screens/ViewAllPurchases'
+import SettingsScreen from '../screens/SettingsScreen';
 import { Ionicons } from '@expo/vector-icons';
 
 const BottomTab = createBottomTabNavigator();
@@ -29,10 +31,23 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={AddPurchaseScreen}
         options={{
           title: 'Add Purchase',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="ViewAllPurchases"
+        component={ViewAllPurchasesScreen}
+        options={{
+          title: 'All Purchase',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
-          // md-pricetag
-          // md-card
-          // md-cash
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,
         }}
       />
     </BottomTab.Navigator>
@@ -47,5 +62,9 @@ function getHeaderTitle(route) {
       return 'Home';
     case 'AddPurchase':
       return 'Add Purchase';
+    case 'ViewAllPurchases':
+      return 'All Purchases';
+    case 'Settings':
+      return 'Settings';
   }
 }
