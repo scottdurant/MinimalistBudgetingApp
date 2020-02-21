@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import PurchaseCard from '../components/PurchaseCard';
 
 export default function ViewAllPurchasesScreen() {
     return (
         <View style={styles.mainContainer}>
             <Text> All purchases listed here!</Text>
+            <PurchaseCard>
+                
+            </PurchaseCard>
         </View>
     );
 }

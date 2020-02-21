@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Input } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ToastAndroid } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function AddPurchaseScreen() {
@@ -13,6 +13,11 @@ export default function AddPurchaseScreen() {
     function handleChange(event) {
         setState({ [event.target.name]: event.target.value });
     }
+
+    function onSubmit() {
+        ToastAndroid.show('Purchase Submitted!', ToastAndroid.SHORT);
+    }
+
 
     return (//style={styles.mainContainer}
         <View style={styles.mainContainer}>
@@ -35,9 +40,14 @@ export default function AddPurchaseScreen() {
                 value={state.purchaseAmount}
                 onChange={handleChange}
             />
-        </View>
 
-        
+            <View style={styles.bottomView}>
+               <Button
+                title="Submit"
+                onPress={onSubmit}
+               /> 
+            </View>
+        </View>
     );
 }
 
@@ -73,10 +83,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 14,
         color: 'grey',
-        height: 40, 
+        height: 40,
         borderColor: 'gray',
         borderBottomWidth: 1
     }
-    
+
 })
 
