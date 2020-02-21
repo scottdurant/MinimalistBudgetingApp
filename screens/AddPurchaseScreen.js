@@ -14,29 +14,30 @@ export default function AddPurchaseScreen() {
         setState({ [event.target.name]: event.target.value });
     }
 
-    return (
+    return (//style={styles.mainContainer}
         <View style={styles.mainContainer}>
-            <Text> Add a purchase!</Text>
+            <Text style={styles.header}>Description</Text>
             <TextInput
                 name="purchaseDescription"
-                style={{ height: 40 }}
+                //style={{height: 40}}
+                style={styles.inputText}
                 placeholder="Enter purchase description:"
                 value={state.purchaseDescription}
                 onChange={handleChange}
             />
+            <Text style={styles.header}>Amount</Text>
             <TextInput
                 name="purchaseAmount"
-                keyboardType="number-pad"
-                style={{ height: 40 }}
+                keyboardType="decimal-pad"
+                // style={{ height: 40, }}
+                style={styles.inputText}
                 placeholder="Enter purchase amount:"
                 value={state.purchaseAmount}
                 onChange={handleChange}
             />
-
-            <View style={styles.bottomView}>
-                <Button title="Done" />
-            </View>
         </View>
+
+        
     );
 }
 
@@ -45,12 +46,12 @@ export default function AddPurchaseScreen() {
 
 
 const styles = StyleSheet.create({
-    headline: {
+    header: {
         textAlign: 'center', // <-- the magic
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 18,
-        marginTop: 12,
+        fontSize: 20,
+        marginTop: 18,
         marginBottom: 12,
     },
     mainContainer: {
@@ -68,5 +69,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0
     },
+    inputText: {
+        textAlign: 'center',
+        fontSize: 14,
+        color: 'grey',
+        height: 40, 
+        borderColor: 'gray',
+        borderBottomWidth: 1
+    }
+    
 })
 
