@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ToastAndroid } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
-export default function AddPurchaseScreen() {
+export default function AddPurchaseScreen({ navigation, route }) {
     // useState declares a new state variable called value, and takes an initial state
     // useState returns two values: the current state and function that updates it
-    const [state, setState] = React.useState({
-        purchaseDescription: "",
-        purchaseAmount: ""
-    })
+
+    // const [state, setState] = React.useState({
+    //     purchaseDescription: "",
+    //     purchaseAmount: ""
+    // })
+
+    const [descriptionText, setDescriptionText] = React.useState('');
 
     function handleChange(event) {
         setState({ [event.target.name]: event.target.value });
@@ -16,6 +18,7 @@ export default function AddPurchaseScreen() {
 
     function onSubmit() {
         ToastAndroid.show('Purchase Submitted!', ToastAndroid.SHORT);
+        navigation.navigate('ViewAllPurchases');//, { descirption: 'Some description' });
     }
 
 
@@ -27,25 +30,27 @@ export default function AddPurchaseScreen() {
                 //style={{height: 40}}
                 style={styles.inputText}
                 placeholder="Enter purchase description:"
-                value={state.purchaseDescription}
-                onChange={handleChange}
+                value={descriptionText}    //{state.purchaseDescription}
+                onChangeText={(val) => setDescriptionText(val)}
+            //onChange={handleChange}
             />
             <Text style={styles.header}>Amount</Text>
-            <TextInput
+            {/* <TextInput
                 name="purchaseAmount"
                 keyboardType="decimal-pad"
                 // style={{ height: 40, }}
                 style={styles.inputText}
                 placeholder="Enter purchase amount:"
-                value={state.purchaseAmount}
+                value={purchaseAmount}
                 onChange={handleChange}
-            />
-
+            /> */}
             <View style={styles.bottomView}>
-               <Button
-                title="Submit"
-                onPress={onSubmit}
-               /> 
+                <Button
+                    title="Submit"
+                    onPress={() => {
+                        navigation.navigate('ViewAllPurchases', {descriptionText: descriptionText});
+                    }}
+                />
             </View>
         </View>
     );
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: (Platform.OS === 'ios') ? 20 : 0
+        //paddingTop: (Platform.OS === 'ios') ? 20 : 0
     },
     bottomView: {
         width: '100%',
