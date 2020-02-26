@@ -1,58 +1,99 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ToastAndroid } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableWithoutFeedback, Keyboard, Text, View, Button, TextInput, ToastAndroid } from 'react-native';
+import AddPurchase from '../components/AddPurchase';
+import PurchaseItem from '../components/PurchaseItem';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation, route }) {
-    // useState declares a new state variable called value, and takes an initial state
-    // useState returns two values: the current state and function that updates it
+    // for now, this screen will show a list of purchases, and allow
+    // users to enter purchases
 
-    // const [state, setState] = React.useState({
-    //     purchaseDescription: "",
-    //     purchaseAmount: ""
-    // })
+    // list of purchases
+    const [purchases, setPurchases] = useState([
+        { description: 'groceries', key: '1' },
+        { description: 'gas', key: '2' },
+    ]);
 
-    const [descriptionText, setDescriptionText] = React.useState('text');
-
-    function handleChange(event) {
-        setState({ [event.target.name]: event.target.value });
+    const submitHandler = (text) => {
+        setPurchases(previousPurchases => {
+            return [
+                { text, key: Math.random().toString() },
+                ...previousPurchases
+            ];
+        });
     }
 
-    function onSubmit() {
-        ToastAndroid.show('Purchase Submitted!', ToastAndroid.SHORT);
-        navigation.navigate('ViewAllPurchases');//, { descirption: 'Some description' });
-    }
 
+    //const [descriptionText, setDescriptionText] = React.useState('text');
+
+    // function handleChange(event) {
+    //     setState({ [event.target.name]: event.target.value });
+    // }
+
+    // function onSubmit() {
+    //     ToastAndroid.show('Purchase Submitted!', ToastAndroid.SHORT);
+    //     navigation.navigate('ViewAllPurchases');//, { descirption: 'Some description' });
+    // }
 
     return (
-        <View style={styles.mainContainer}>
-            <Text style={styles.header}>Description</Text>
-            <TextInput
-                name="purchaseDescription"
-                style={styles.inputText}
-                placeholder="Enter purchase description:"
-                value={descriptionText}    
-                onChangeText={(val) => setDescriptionText(val)}
-            //onChange={handleChange}
-            />
-            <Text style={styles.header}>Amount</Text>
-            {/* <TextInput
-                name="purchaseAmount"
-                keyboardType="decimal-pad"
-                // style={{ height: 40, }}
-                style={styles.inputText}
-                placeholder="Enter purchase amount:"
-                value={purchaseAmount}
-                onChange={handleChange}
-            /> */}
-            <View style={styles.bottomView}>
-                <Button
-                    title="Submit"
-                    onPress={() => {
-                        navigation.navigate('ViewAllPurchases', {descriptionText: descriptionText});
-                    }}
-                />
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <AddPurchase submitHandler={submitHandler}/>
+                    <View style={styles.list}>
+                        {/* fix scrolling issue with flex box*/}
+                        <FlatList
+                            data={purchases}
+                            renderItem={({ item }) => (
+                                <PurchaseItem item={item}/>
+                            )}
+                        />
+                    </View>
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
+
+
+
+
+
+
+
+
+
+    // old return...
+    // return (
+    //     <View style={styles.mainContainer}>
+    //         <Text style={styles.header}>Description</Text>
+    //         <TextInput
+    //             name="purchaseDescription"
+    //             style={styles.inputText}
+    //             placeholder="Enter purchase description:"
+    //             value={descriptionText}    
+    //             onChangeText={(val) => setDescriptionText(val)}
+    //         //onChange={handleChange}
+    //         />
+    //         <Text style={styles.header}>Amount</Text>
+    //         <TextInput
+    //             name="purchaseAmount"
+    //             keyboardType="decimal-pad"
+    //             // style={{ height: 40, }}
+    //             style={styles.inputText}
+    //             placeholder="Enter purchase amount:"
+    //             value={purchaseAmount}
+    //             onChange={handleChange}
+    //         />
+    //         <View style={styles.bottomView}>
+    //             <Button
+    //                 title="Submit"
+    //                 onPress={() => {
+    //                     navigation.navigate('ViewAllPurchases', {descriptionText: descriptionText});
+    //                 }}
+    //             />
+    //         </View>
+    //     </View>
+    // );
 }
 
 
@@ -74,6 +115,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         //paddingTop: (Platform.OS === 'ios') ? 20 : 0
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    content: {
+        padding: 40,
+    },
+    list: {
+        marginTop: 20,
     },
     bottomView: {
         width: '100%',

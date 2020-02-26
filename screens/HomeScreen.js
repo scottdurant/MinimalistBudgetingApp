@@ -10,25 +10,13 @@ export default function HomeScreen({ navigation }) {
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
-
-          <Text style={styles.getStartedText}>To open up the code for this screen, go to:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-            <Button
-              title="Go to Settings"
-              onPress={() => navigation.navigate('Settings')}
-            />
-          </View>
+          <Button
+            title="Example navigation button: Go to Settings"
+            onPress={() => navigation.navigate('Settings')}
+          />
         </View>
       </ScrollView>
 
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
-        </View>
-      </View>
     </View>
   );
 }
