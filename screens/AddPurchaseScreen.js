@@ -10,7 +10,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
     //     purchaseAmount: ""
     // })
 
-    const [descriptionText, setDescriptionText] = React.useState('');
+    const [descriptionText, setDescriptionText] = React.useState('text');
 
     function handleChange(event) {
         setState({ [event.target.name]: event.target.value });
@@ -22,15 +22,14 @@ export default function AddPurchaseScreen({ navigation, route }) {
     }
 
 
-    return (//style={styles.mainContainer}
+    return (
         <View style={styles.mainContainer}>
             <Text style={styles.header}>Description</Text>
             <TextInput
                 name="purchaseDescription"
-                //style={{height: 40}}
                 style={styles.inputText}
                 placeholder="Enter purchase description:"
-                value={descriptionText}    //{state.purchaseDescription}
+                value={descriptionText}    
                 onChangeText={(val) => setDescriptionText(val)}
             //onChange={handleChange}
             />

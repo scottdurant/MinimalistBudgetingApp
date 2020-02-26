@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
     const {descriptionText} = route.params;
+    
+
     React.useEffect(() => {
     if (route.params?.descriptionText) {
       // Description updated, do something with `route.params.desccription`
