@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -10,10 +9,12 @@ export default function HomeScreen({ navigation }) {
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
-          <Button
-            title="Example navigation button: Go to Settings"
-            onPress={() => navigation.navigate('Settings')}
-          />
+          <View style={styles.contentContainer}>
+            <Button
+              title="Example navigation button: Go to Settings"
+              onPress={() => navigation.navigate('Settings')}
+            />
+          </View>
         </View>
       </ScrollView>
 
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 20,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -102,16 +103,5 @@ const styles = StyleSheet.create({
   },
   navigationFilename: {
     marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
   },
 });

@@ -10,30 +10,26 @@ export default function AddPurchaseScreen({ navigation, route }) {
 
     // list of purchases
     const [purchases, setPurchases] = useState([
-        { description: 'groceries', key: '1' },
-        { description: 'gas', key: '2' },
+        { description: 'groceries', price: '32', key: '1' },
+        { description: 'gas', price: '27', key: '2' },
     ]);
 
-    const submitHandler = (text) => {
+    const submitHandler = (description) => {
         setPurchases(previousPurchases => {
+            Keyboard.dismiss();
             return [
-                { text, key: Math.random().toString() },
+                { description, key: Math.random().toString() },
                 ...previousPurchases
             ];
         });
     }
 
+    const removePurchase = (key) => {
+        setPurchases(previousPurchases => {
+            return previousPurchases.filter(purchase => purchase.key != key);
+        });
+    };
 
-    //const [descriptionText, setDescriptionText] = React.useState('text');
-
-    // function handleChange(event) {
-    //     setState({ [event.target.name]: event.target.value });
-    // }
-
-    // function onSubmit() {
-    //     ToastAndroid.show('Purchase Submitted!', ToastAndroid.SHORT);
-    //     navigation.navigate('ViewAllPurchases');//, { descirption: 'Some description' });
-    // }
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -45,7 +41,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
                         <FlatList
                             data={purchases}
                             renderItem={({ item }) => (
-                                <PurchaseItem item={item}/>
+                                <PurchaseItem item={item} removePurchase={removePurchase}/>
                             )}
                         />
                     </View>
@@ -53,51 +49,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
             </View>
         </TouchableWithoutFeedback>
     );
-
-
-
-
-
-
-
-
-
-    // old return...
-    // return (
-    //     <View style={styles.mainContainer}>
-    //         <Text style={styles.header}>Description</Text>
-    //         <TextInput
-    //             name="purchaseDescription"
-    //             style={styles.inputText}
-    //             placeholder="Enter purchase description:"
-    //             value={descriptionText}    
-    //             onChangeText={(val) => setDescriptionText(val)}
-    //         //onChange={handleChange}
-    //         />
-    //         <Text style={styles.header}>Amount</Text>
-    //         <TextInput
-    //             name="purchaseAmount"
-    //             keyboardType="decimal-pad"
-    //             // style={{ height: 40, }}
-    //             style={styles.inputText}
-    //             placeholder="Enter purchase amount:"
-    //             value={purchaseAmount}
-    //             onChange={handleChange}
-    //         />
-    //         <View style={styles.bottomView}>
-    //             <Button
-    //                 title="Submit"
-    //                 onPress={() => {
-    //                     navigation.navigate('ViewAllPurchases', {descriptionText: descriptionText});
-    //                 }}
-    //             />
-    //         </View>
-    //     </View>
-    // );
 }
-
-
-
 
 
 const styles = StyleSheet.create({
@@ -143,5 +95,5 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     }
 
-})
+});
 

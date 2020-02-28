@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
 
+// AddPurchase component consists of a text input and a button
+
+
 export default function AddPurchase({ submitHandler }) {
     // keeps track of what the user types in
     const [text, setText] = useState('');
@@ -10,7 +13,6 @@ export default function AddPurchase({ submitHandler }) {
         setText(val);
     };
     
-
     return (
         <View>
             <TextInput
@@ -32,5 +34,6 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
+        textAlign: 'center'
     }
 })
