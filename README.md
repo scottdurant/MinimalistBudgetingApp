@@ -42,7 +42,8 @@ or
 yarn start
 ```
 
-From this point, you can install the [Expo Client for Android](https://expo.io/tools#client) on a phone and scan the QR code to run the app on an actual Android device.
+You may need to run `npm install` in the project directory if `npm start` causes errors. 
+From this point, you can install the [Expo Client for Android](https://expo.io/tools#client) on a phone and scan the QR code to run the app on an actual Android device. You may need to click tunnel above the QR code before scanning it. 
 Or, you can also follow the more detailed [React Native CLI Quickstart](https://reactnative.dev/docs/getting-started) instructions to get an emulator installed and running. 
 
 
