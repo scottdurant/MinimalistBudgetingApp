@@ -3,6 +3,9 @@
 This project is a React Native app that will help users budget their money. The main goal with this project is to create something that is simple and
 easy to use, which will encourage users to enter their purchases regularly and stay within their budgets.
 
+## Structure
+The main directories to look at are the `components` and `screens` directories. `components` includes things like an `AddPurchase` component, which displays a text input and a button for users to enter a purchase. `screens` contains all of the screens for the app, such as the `HomeScreen`, and `AddPurchaseScreen`. 
+
 ## Getting Started
 
 Follow these steps to run this app on your local machine.
