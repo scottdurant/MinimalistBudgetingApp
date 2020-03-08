@@ -21,6 +21,9 @@ export default function AddPurchase({ submitHandler }) {
             onChangeText={changeHandler}
             value={text}
             />
+            {/*///////////////////////////////////
+                Need to add another text input so the user can enter a price, and wire it up!
+             /////////////////////////////////////*/}
             <Button title='add purchase' onPress={() => submitHandler(text)}/>
         </View>
     );
