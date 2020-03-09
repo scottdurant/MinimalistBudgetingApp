@@ -7,11 +7,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 export default function PurchaseItem({ removePurchase, item }) {
     return (
       <TouchableOpacity onPress={() => removePurchase(item.key)}>
-        <Text style={styles.item}>{item.description} - ${item.price}</Text>
+        <Text style={styles.item}>{item.description} </Text>     
       </TouchableOpacity>
    );
 }
-
+{/* add in {item.price} later*/}
 
 const styles = StyleSheet.create({
   item: {
