@@ -15,6 +15,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
     ]);
 
     const submitHandler = (description) => {
+        // adds the given purchase to the list of purchases
         setPurchases(previousPurchases => {
             Keyboard.dismiss();
             return [
@@ -22,7 +23,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
-        // navigation.navigate('ViewAllPurchases');
+        navigation.navigate('ViewAllPurchases');
     }
 
     const removePurchase = (key) => {
