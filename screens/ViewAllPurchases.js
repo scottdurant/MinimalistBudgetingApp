@@ -2,20 +2,18 @@ import * as React from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
-    const {descriptionText} = route.params;
-    
+    // const {descriptionText} = route.params;
+//     React.useEffect(() => {
+//     if (route.params?.descriptionText) {
+//       // Description updated, do something with `route.params.desccription`
+//       // For example, send the description to the server
+//     }
+//   }, [route.params?.descriptionText]);
 
-    React.useEffect(() => {
-    if (route.params?.descriptionText) {
-      // Description updated, do something with `route.params.desccription`
-      // For example, send the description to the server
-    }
-  }, [route.params?.descriptionText]);
 
     return (
         <View style={styles.mainContainer}>
             <Text> All purchases listed here!</Text>
-            <Text>Description: {(descriptionText)}</Text>
         </View>
     );
 }

@@ -22,6 +22,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
+        // navigation.navigate('ViewAllPurchases');
     }
 
     const removePurchase = (key) => {
@@ -37,6 +38,8 @@ export default function AddPurchaseScreen({ navigation, route }) {
                 <View style={styles.content}>
                     <AddPurchase submitHandler={submitHandler}/>
                     <View style={styles.list}>
+
+                        {/* Need this to show up on ViewAllPurchases Screen */}
                         {/* fix scrolling issue with flex box*/}
                         <FlatList
                             data={purchases}
@@ -44,6 +47,8 @@ export default function AddPurchaseScreen({ navigation, route }) {
                                 <PurchaseItem item={item} removePurchase={removePurchase}/>
                             )}
                         />
+
+
                     </View>
                 </View>
             </View>

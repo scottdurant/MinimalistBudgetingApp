@@ -34,17 +34,18 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
         }}
       />
-      {/* <BottomTab.Screen
+      <BottomTab.Screen
         name="ViewAllPurchases"
         component={ViewAllPurchasesScreen}
         options={{
-          title: 'All Purchase',
+          title: 'All Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
         }}
-      /> */}
+      />
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
+        initialParams={{ itemId: 1 }}
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,
