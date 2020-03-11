@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import AddPurchaseScreen from '../screens/AddPurchaseScreen';
-import ViewAllPurchasesScreen from '../screens/ViewAllPurchases'
+import ViewAllPurchasesScreen from '../screens/ViewAllPurchasesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -34,17 +34,19 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
         }}
       />
-      {/* <BottomTab.Screen
+      <BottomTab.Screen
         name="ViewAllPurchases"
         component={ViewAllPurchasesScreen}
+        initialParams={{description: ''}}
         options={{
-          title: 'All Purchase',
+          title: 'All Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
         }}
-      /> */}
+      />
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
+        initialParams={{description: 'Go to home screen to enter something'}}
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,

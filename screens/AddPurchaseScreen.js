@@ -1,51 +1,21 @@
-import React, { useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, Keyboard, Text, View, Button, TextInput, ToastAndroid } from 'react-native';
+import React from 'react';
+import { StyleSheet, TouchableWithoutFeedback, Keyboard, View, } from 'react-native';
 import AddPurchase from '../components/AddPurchase';
-import PurchaseItem from '../components/PurchaseItem';
-import { FlatList } from 'react-native-gesture-handler';
 
-export default function AddPurchaseScreen({ navigation, route }) {
-    // for now, this screen will show a list of purchases, and allow
-    // users to enter purchases
-
-    // list of purchases
-    const [purchases, setPurchases] = useState([
-        { description: 'groceries', price: '32', key: '1' },
-        { description: 'gas', price: '27', key: '2' },
-    ]);
-
+export default function AddPurchaseScreen({ navigation }) {
+    // send the description to ViewAllPurchasesScreen
     const submitHandler = (description) => {
-        setPurchases(previousPurchases => {
-            Keyboard.dismiss();
-            return [
-                { description, key: Math.random().toString() },
-                ...previousPurchases
-            ];
+        navigation.navigate('ViewAllPurchases', {
+            description: description
         });
-    }
-
-    const removePurchase = (key) => {
-        setPurchases(previousPurchases => {
-            return previousPurchases.filter(purchase => purchase.key != key);
-        });
-    };
-
+   }
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <AddPurchase submitHandler={submitHandler}/>
-                    <View style={styles.list}>
-                        {/* fix scrolling issue with flex box*/}
-                        <FlatList
-                            data={purchases}
-                            renderItem={({ item }) => (
-                                <PurchaseItem item={item} removePurchase={removePurchase}/>
-                            )}
-                        />
-                    </View>
-                </View>
+                    <AddPurchase submitHandler={submitHandler} />
+               </View>
             </View>
         </TouchableWithoutFeedback>
     );

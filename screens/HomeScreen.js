@@ -1,18 +1,35 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 
 export default function HomeScreen({ navigation }) {
+  const [text, setText] = useState('');
+
+  const changeHandler = (val) => {
+    setText(val);
+  }
+
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
           <View style={styles.contentContainer}>
+            <TextInput
+              placeholder='enter a word and see it on another page'
+              onChangeText={changeHandler}
+              value={text}
+            />
             <Button
               title="Example navigation button: Go to Settings"
-              onPress={() => navigation.navigate('Settings')}
+              onPress={() => navigation.navigate('Settings', {
+                description: text,
+              })}
+              // onPress={() => navigation.navigate('Settings')}
             />
           </View>
         </View>
