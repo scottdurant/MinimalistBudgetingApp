@@ -1,42 +1,33 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Keyboard, Button } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import PurchaseItem from '../components/PurchaseItem';
-
-
 
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { description } = route.params;   // needs a default value
 
-    // call setPurchases whenever user navigates to viewAllPurchasesScreen
-    // useFocusEffect(
-    //     React.useCallback(() => {
-    //         updatePurchaseList();
-    //         //const unsubscribe = API.subscribe(userId, user => setUser(data));
-    //     })
-    // );
+    // when navigating to this screen, check if description has been changed
+    React.useEffect(() => {
+        if (route.params?.description) {
+            // Description updated, update the list with new description  
+            updatePurchaseList();
+        }
+    }, [route.params?.description]);
 
 
-    // list of purchases
+    // list of purchases with some default values
     const [purchases, setPurchases] = useState([
         { description: 'groceries', price: '32', key: '1' },
         { description: 'gas', price: '27', key: '2' },
     ]);
 
-    // // adds the given purchase to the list of purchases
-    // setPurchases(previousPurchases => {
-    //     Keyboard.dismiss();
-    //     return [
-    //         { description: {description}, key: Math.random().toString() },
-    //         ...previousPurchases
-    //     ];
-    // });
 
+    // takes the new description and puts it in the list of purchases
     const updatePurchaseList = () => {
         setPurchases(previousPurchases => {
             Keyboard.dismiss();
+            {/*@TODO: update how key gets generated*/ }
             return [
                 { description: description, key: Math.random().toString() },
                 ...previousPurchases
@@ -44,6 +35,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         });
     }
 
+    // removes a purchase when clicked
     const removePurchase = (key) => {
         setPurchases(previousPurchases => {
             return previousPurchases.filter(purchase => purchase.key != key);
@@ -51,20 +43,17 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     };
 
     return (
-        <View style={styles.mainContainer}>
-            <Text> Description: {description} </Text>
-            <Button 
-            title='update list'
-            onPress={() => updatePurchaseList()}
-            />
-
-            {/* move all 'purchase' stuff from AddPurchaseScreen to here!!  */}
-            <FlatList
-                data={purchases}
-                renderItem={({ item }) => (
-                    <PurchaseItem item={item} removePurchase={removePurchase}/>
-                )}
-            />
+        <View style={styles.container}>
+            <View style={styles.content}>
+                <View style={styles.list}>
+                    <FlatList
+                        data={purchases}
+                        renderItem={({ item }) => (
+                            <PurchaseItem item={item} removePurchase={removePurchase} />
+                        )}
+                    />
+                </View>
+            </View>
         </View>
     );
 }
@@ -73,6 +62,13 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    content: {
+        padding: 40,
+    },
     headline: {
         textAlign: 'center', // <-- the magic
         justifyContent: 'center',
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: (Platform.OS === 'ios') ? 20 : 0
+        //paddingTop: (Platform.OS === 'ios') ? 20 : 0
     },
     bottomView: {
         width: '100%',
@@ -96,13 +92,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0
     },
+    list: {
+        marginTop: 20,
+    },
 })
-
-// const {descriptionText} = route.params;
-    //     React.useEffect(() => {
-    //     if (route.params?.descriptionText) {
-    //       // Description updated, do something with `route.params.desccription`
-    //       // For example, send the description to the server
-    //     }
-    //   }, [route.params?.descriptionText]);
-
