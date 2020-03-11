@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, } from 'react-native';
 
 export default function AddPurchaseScreen({ route, navigation }) {
     const { description } = route.params;

@@ -15,15 +15,21 @@ export default function AddPurchaseScreen({ navigation, route }) {
     ]);
 
     const submitHandler = (description) => {
-        // adds the given purchase to the list of purchases
-        setPurchases(previousPurchases => {
-            Keyboard.dismiss();
-            return [
-                { description, key: Math.random().toString() },
-                ...previousPurchases
-            ];
+        // send the description to ViewAllPurchasesScreen
+        navigation.navigate('ViewAllPurchases', {
+            description: description
         });
-        navigation.navigate('ViewAllPurchases');
+
+
+
+        // // adds the given purchase to the list of purchases
+        // setPurchases(previousPurchases => {
+        //     Keyboard.dismiss();
+        //     return [
+        //         { description, key: Math.random().toString() },
+        //         ...previousPurchases
+        //     ];
+        // });
     }
 
     const removePurchase = (key) => {
@@ -37,7 +43,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <AddPurchase submitHandler={submitHandler}/>
+                    <AddPurchase submitHandler={submitHandler} />
                     <View style={styles.list}>
 
                         {/* Need this to show up on ViewAllPurchases Screen */}
@@ -45,7 +51,7 @@ export default function AddPurchaseScreen({ navigation, route }) {
                         <FlatList
                             data={purchases}
                             renderItem={({ item }) => (
-                                <PurchaseItem item={item} removePurchase={removePurchase}/>
+                                <PurchaseItem item={item} removePurchase={removePurchase} />
                             )}
                         />
 
