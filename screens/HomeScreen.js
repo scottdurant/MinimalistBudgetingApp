@@ -6,11 +6,21 @@ import { useSafeArea } from 'react-native-safe-area-context';
 
 
 export default function HomeScreen({ navigation }) {
-  const [text, setText] = useState('');
+  //const [text, setText] = useState('');
+  const [state, setState] = useState({
+    firstName: "",
+    lastName: ""
+  })
+  
+  
+  const changeHandler = (evt) => {
+    //alert(evt.);
+    //setState(evt);
 
-  const changeHandler = (val) => {
-    setText(val);
+    //setState(val);
   }
+
+
 
 
   return (
@@ -20,17 +30,20 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
           <View style={styles.contentContainer}>
             <TextInput
-              placeholder='enter a word and see it on another page'
-              onChangeText={changeHandler}
-              value={text}
+              name='firstName'
+              placeholder='enter first name'
+              value={state.firstName}
+              onChangeText={(text) => setState({firstName: text})}
             />
-            <Button
-              title="Example navigation button: Go to Settings"
-              onPress={() => navigation.navigate('Settings', {
-                description: text,
-              })}
-              // onPress={() => navigation.navigate('Settings')}
+
+            <TextInput
+              name='lastName'
+              placeholder='enter last name'
+              value={state.lastName}
+              onChangeText={(textt) => setState({lastName: textt})}
             />
+            <Text>First Name: {state.firstName}</Text>
+            <Text>Last Name: {state.lastName}</Text>
           </View>
         </View>
       </ScrollView>
