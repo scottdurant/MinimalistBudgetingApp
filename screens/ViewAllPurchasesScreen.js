@@ -5,7 +5,7 @@ import PurchaseItem from '../components/PurchaseItem';
 
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
-    const { description } = route.params;   // needs a default value
+    const { description } = route.params;   // needs a default value                     // random changes!!!!!!!!!!!!!!!
     const { price } = route.params;
 
     // when navigating to this screen, check if description has been changed
