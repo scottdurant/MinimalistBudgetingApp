@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { useSafeArea } from 'react-native-safe-area-context';
 
 
 export default function HomeScreen({ navigation }) {
@@ -11,15 +10,10 @@ export default function HomeScreen({ navigation }) {
     firstName: "",
     lastName: ""
   })
-  
-  
-  const changeHandler = (evt) => {
-    //alert(evt.);
-    //setState(evt);
 
-    //setState(val);
-  }
-
+  // make sure to use ...state to keep the rest of the state and add changes to it
+  // otherwise, all of the state will be reset when there are changes
+  // onChangeText={(text) => setState({...state,firstName: text})}
 
 
 
@@ -33,14 +27,14 @@ export default function HomeScreen({ navigation }) {
               name='firstName'
               placeholder='enter first name'
               value={state.firstName}
-              onChangeText={(text) => setState({firstName: text})}
+              onChangeText={(text) => setState({...state, firstName: text})}
             />
 
             <TextInput
               name='lastName'
               placeholder='enter last name'
               value={state.lastName}
-              onChangeText={(textt) => setState({lastName: textt})}
+              onChangeText={(text) => setState({...state, lastName: text})}
             />
             <Text>First Name: {state.firstName}</Text>
             <Text>Last Name: {state.lastName}</Text>
