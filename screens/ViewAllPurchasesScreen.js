@@ -6,6 +6,7 @@ import PurchaseItem from '../components/PurchaseItem';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { description } = route.params;   // needs a default value
+    const { price } = route.params;
 
     // when navigating to this screen, check if description has been changed
     React.useEffect(() => {
@@ -29,7 +30,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             Keyboard.dismiss();
             {/*@TODO: update how key gets generated*/ }
             return [
-                { description: description, key: Math.random().toString() },
+                { description: description, price: price, key: Math.random().toString() },
                 ...previousPurchases
             ];
         });
