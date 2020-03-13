@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { useSafeArea } from 'react-native-safe-area-context';
 
 
 export default function HomeScreen({ navigation }) {
-  const [text, setText] = useState('');
+  //const [text, setText] = useState('');
+  const [state, setState] = useState({
+    firstName: "",
+    lastName: ""
+  })
 
-  const changeHandler = (val) => {
-    setText(val);
-  }
+  // make sure to use ...state to keep the rest of the state and add changes to it
+  // otherwise, all of the state will be reset when there are changes
+  // onChangeText={(text) => setState({...state,firstName: text})}
+
 
 
   return (
@@ -20,17 +24,20 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
           <View style={styles.contentContainer}>
             <TextInput
-              placeholder='enter a word and see it on another page'
-              onChangeText={changeHandler}
-              value={text}
+              name='firstName'
+              placeholder='enter first name'
+              value={state.firstName}
+              onChangeText={(text) => setState({...state, firstName: text})}
             />
-            <Button
-              title="Example navigation button: Go to Settings"
-              onPress={() => navigation.navigate('Settings', {
-                description: text,
-              })}
-              // onPress={() => navigation.navigate('Settings')}
+
+            <TextInput
+              name='lastName'
+              placeholder='enter last name'
+              value={state.lastName}
+              onChangeText={(text) => setState({...state, lastName: text})}
             />
+            <Text>First Name: {state.firstName}</Text>
+            <Text>Last Name: {state.lastName}</Text>
           </View>
         </View>
       </ScrollView>

@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
 
-// AddPurchase component consists of a text input and a button
-
-
+// AddPurchase component includes fields for user input and a button to submit data
 export default function AddPurchase({ submitHandler }) {
     // keeps track of what the user types in
-    const [text, setText] = useState('');
+    const [state, setState] = useState({
+        description: "",
+        price: ""
+    });
 
-    // sets text to whatever the user entered
-    const changeHandler = (val) => {
-        setText(val);
-    };
-    
     return (
         <View>
             <TextInput
-            style={styles.input}
-            placeholder='enter purchase description'
-            onChangeText={changeHandler}
-            value={text}
+                style={styles.input}
+                placeholder='enter purchase description'
+                value={state.description}
+                onChangeText={(text) => setState({...state, description: text})}
             />
-            {/*///////////////////////////////////
-                Need to add another text input so the user can enter a price, and wire it up!
-             /////////////////////////////////////*/}
-            <Button title='add purchase' onPress={() => submitHandler(text)}/>
+            <TextInput
+                style={styles.input}
+                placeholder='enter purchase price'
+                value={state.price} 
+                onChangeText={(text) => setState({...state, price: text})}
+            />
+            <Button title='add purchase' onPress={() => submitHandler(state.description, state.price)} />
         </View>
     );
 }
