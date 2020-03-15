@@ -7,7 +7,6 @@ export default function AddPurchaseScreen({ route, navigation }) {
     return (
         <View style={styles.mainContainer}>
             <Text> Change settings!</Text>
-            <Text>You entered: {description}</Text>
         </View>
     );
 }
