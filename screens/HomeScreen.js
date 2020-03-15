@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default function HomeScreen({ navigation }) {
@@ -23,21 +24,6 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
           <View style={styles.contentContainer}>
-            <TextInput
-              name='firstName'
-              placeholder='enter first name'
-              value={state.firstName}
-              onChangeText={(text) => setState({...state, firstName: text})}
-            />
-
-            <TextInput
-              name='lastName'
-              placeholder='enter last name'
-              value={state.lastName}
-              onChangeText={(text) => setState({...state, lastName: text})}
-            />
-            <Text>First Name: {state.firstName}</Text>
-            <Text>Last Name: {state.lastName}</Text>
           </View>
         </View>
       </ScrollView>

@@ -4,10 +4,11 @@ import AddPurchase from '../components/AddPurchase';
 
 export default function AddPurchaseScreen({ navigation }) {
     // send the description to ViewAllPurchasesScreen
-    const submitHandler = (description, price) => {
+    const submitHandler = (description, price, date) => {
         navigation.navigate('ViewAllPurchases', {
             description: description,
-            price: price
+            price: price,
+            date: date
         });
    }
 

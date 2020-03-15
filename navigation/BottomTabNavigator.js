@@ -46,7 +46,6 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
-        initialParams={{description: 'Go to home screen to enter something'}}
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,
