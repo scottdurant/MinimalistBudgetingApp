@@ -21,7 +21,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     // list of purchases with some default values
     const [purchases, setPurchases] = useState([
-        { description: 'groceries', price: '32', date: new Date(),  key: '1' },
+        //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
 
 

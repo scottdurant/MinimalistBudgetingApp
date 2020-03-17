@@ -2,7 +2,6 @@ import * as React from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 
 export default function AddPurchaseScreen({ route, navigation }) {
-    const { description } = route.params;
 
     return (
         <View style={styles.mainContainer}>
