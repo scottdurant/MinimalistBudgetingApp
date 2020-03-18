@@ -30,14 +30,14 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="AddPurchase"
         component={AddPurchaseScreen}
         options={{
-          title: 'Add Purchase',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
-        }}
+        title: 'Add Purchase',
+        tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
+      }}
       />
       <BottomTab.Screen
         name="ViewAllPurchases"
         component={ViewAllPurchasesScreen}
-        initialParams={{description: ''}}
+        initialParams={{ description: '' }}
         options={{
           title: 'All Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
@@ -46,7 +46,6 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
-        initialParams={{description: 'Go to home screen to enter something'}}
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,

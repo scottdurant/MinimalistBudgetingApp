@@ -1,30 +1,58 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-// AddPurchase component consists of a text input and a button
-
-
+// AddPurchase component includes fields for user input and a button to submit data
 export default function AddPurchase({ submitHandler }) {
     // keeps track of what the user types in
-    const [text, setText] = useState('');
+    const [state, setState] = useState({
+        description: "",
+        price: "",
+        date: new Date(),
+    });
 
-    // sets text to whatever the user entered
-    const changeHandler = (val) => {
-        setText(val);
-    };
-    
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+    const onChange = (value, selectedDate) => {
+        const currentDate = selectedDate || state.date;
+        setShow(Platform.OS === 'ios');
+        setState({...state, date: currentDate});
+    }
+
+    const showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    }
+
+    const showDatePicker = () => {
+        showMode('date');
+    }
+
     return (
         <View>
             <TextInput
-            style={styles.input}
-            placeholder='enter purchase description'
-            onChangeText={changeHandler}
-            value={text}
+                style={styles.input}
+                placeholder='enter purchase description'
+                value={state.description}
+                onChangeText={(text) => setState({...state, description: text})}
             />
-            {/*///////////////////////////////////
-                Need to add another text input so the user can enter a price, and wire it up!
-             /////////////////////////////////////*/}
-            <Button title='add purchase' onPress={() => submitHandler(text)}/>
+            <TextInput
+                style={styles.input}
+                placeholder='enter purchase price'
+                value={state.price} 
+                onChangeText={(text) => setState({...state, price: text})}
+            />
+            {show && (
+                <DateTimePicker 
+                    value={state.date}
+                    mode={mode}
+                    display="default"
+                    onChange={onChange}
+                />
+            )}
+            <Button title='select date' style={styles.button} onPress={showDatePicker} />
+            <Button title='add purchase' style={styles.button} onPress={() => submitHandler(state.description, state.price, state.date.toDateString())} />
         </View>
     );
 }
@@ -38,5 +66,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         textAlign: 'center'
+    },
+    button: {
+        marginTop: 20
     }
 })

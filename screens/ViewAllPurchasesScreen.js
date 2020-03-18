@@ -5,7 +5,10 @@ import PurchaseItem from '../components/PurchaseItem';
 
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
+    // receive values from AddPurchaseScreen
     const { description } = route.params;   // needs a default value
+    const { price } = route.params;
+    const { date } = route.params;
 
     // when navigating to this screen, check if description has been changed
     React.useEffect(() => {
@@ -18,8 +21,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     // list of purchases with some default values
     const [purchases, setPurchases] = useState([
-        { description: 'groceries', price: '32', key: '1' },
-        { description: 'gas', price: '27', key: '2' },
+        //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
 
 
@@ -29,7 +31,10 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             Keyboard.dismiss();
             {/*@TODO: update how key gets generated*/ }
             return [
-                { description: description, key: Math.random().toString() },
+                { description: description,
+                  price: price,
+                  date: date,
+                  key: Math.random().toString() },
                 ...previousPurchases
             ];
         });
