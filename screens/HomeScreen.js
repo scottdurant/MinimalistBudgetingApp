@@ -2,21 +2,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Platform, StyleSheet, Text, View, Button, } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import DateTimePicker from '@react-native-community/datetimepicker';
-
 
 export default function HomeScreen({ navigation }) {
-  //const [text, setText] = useState('');
-  const [state, setState] = useState({
-    firstName: "",
-    lastName: ""
-  })
-
-  // make sure to use ...state to keep the rest of the state and add changes to it
-  // otherwise, all of the state will be reset when there are changes
-  // onChangeText={(text) => setState({...state,firstName: text})}
-
-
 
   return (
     <View style={styles.container}>
@@ -27,7 +14,6 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
       </ScrollView>
-
     </View>
   );
 }

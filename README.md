@@ -57,6 +57,7 @@ You can also follow the more detailed [React Native CLI Quickstart](https://reac
 * [React Native](https://reactnative.dev/)
 * [Expo Client](https://expo.io/tools)
 * [React Navigation](https://reactnavigation.org/)
+* [Currency.js](https://currency.js.org/)
 * [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Authors

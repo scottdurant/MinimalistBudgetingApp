@@ -2,12 +2,12 @@
 import * as React from 'react';
 import { StyleSheet, Text} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import currency from 'currency.js';
 
 export default function PurchaseItem({ removePurchase, item }) {
     return (
       <TouchableOpacity onPress={() => removePurchase(item.key)}>
-        <Text style={styles.item}>{item.description}   |   ${item.price}    |    {item.date} </Text>   
+        <Text style={styles.item}>{item.description}  |  {currency(item.price, {formatWithSymbol: true}).format()}  |  {item.date} </Text>   
       </TouchableOpacity>
    );
 }
