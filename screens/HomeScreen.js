@@ -1,16 +1,19 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Platform, StyleSheet, Text, View, Button, } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
+import currency from 'currency.js';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ route }) {
+  const { budget } = route.params; // might need default value?
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.getStartedContainer}>
-          <Text style={styles.getStartedText}>Welcome to the home screen!</Text>
+            <Text style={styles.getStartedText}>Total budgeted for this month: </Text>
+            <Text style={styles.getStartedText}> {currency(budget, {formatWithSymbol: true}).format()}  </Text>
           <View style={styles.contentContainer}>
+            <Text style={styles.getStartedText}>Total spent this month: </Text>
           </View>
         </View>
       </ScrollView>
