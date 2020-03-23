@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Keyboard, Button } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import PurchaseItem from '../components/PurchaseItem';
-
+import currency from 'currency.js';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
     // receive values from AddPurchaseScreen
@@ -10,19 +10,33 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { price } = route.params;
     const { date } = route.params;
 
-    // when navigating to this screen, check if description has been changed
-    React.useEffect(() => {
-        if (route.params?.description) {
-            // Description updated, update the list with new description  
-            updatePurchaseList();
-        }
-    }, [route.params?.description]);
-
-
     // list of purchases with some default values
     const [purchases, setPurchases] = useState([
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
+
+    const [totalSpent, setTotalSpent] = useState('0');
+
+
+    /////////////////////////////////////////////////////// try looping through the purchases???????????????????? 
+
+
+    // when navigating to this screen, check if description has been changed
+    React.useEffect(() => {
+        if (route.params?.description) {
+            // Description updated, update the list with new description  
+            // let newTotalSpent = currency(totalSpent).add(currency(price));
+            // console.log(newTotalSpent);
+
+            // setTotalSpent({ totalSpent: newTotalSpent });
+            // //console.log(totalSpent);
+
+            updatePurchaseList();
+            // loop thru to get totalSpent
+
+        }
+    }, [route.params?.description]);
+
 
 
     // takes the new description and puts it in the list of purchases
@@ -31,13 +45,21 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             Keyboard.dismiss();
             {/*@TODO: update how key gets generated*/ }
             return [
-                { description: description,
-                  price: price,
-                  date: date,
-                  key: Math.random().toString() },
+                {
+                    description: description,
+                    price: price,
+                    date: date,
+                    key: Math.random().toString()
+                },
                 ...previousPurchases
             ];
         });
+        var i;
+        var total;
+        for (i=0; i<purchases.length; i++) {
+            total += purchases[i].price;
+        }
+        setTotalSpent({total});
     }
 
     // removes a purchase when clicked
