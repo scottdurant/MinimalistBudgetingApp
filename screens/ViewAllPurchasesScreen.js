@@ -15,22 +15,12 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
 
-    const [totalSpent, setTotalSpent] = useState('0');
-
-
-    /////////////////////////////////////////////////////// try looping through the purchases???????????????????? 
-
+    const [totalSpent, setTotalSpent] = useState(0);
 
     // when navigating to this screen, check if description has been changed
     React.useEffect(() => {
         if (route.params?.description) {
             // Description updated, update the list with new description  
-            // let newTotalSpent = currency(totalSpent).add(currency(price));
-            // console.log(newTotalSpent);
-
-            // setTotalSpent({ totalSpent: newTotalSpent });
-            // //console.log(totalSpent);
-
             updatePurchaseList();
             // loop thru to get totalSpent
 
@@ -54,12 +44,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
-        var i;
-        var total;
-        for (i=0; i<purchases.length; i++) {
-            total += purchases[i].price;
-        }
-        setTotalSpent({total});
     }
 
     // removes a purchase when clicked
@@ -68,6 +52,15 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return previousPurchases.filter(purchase => purchase.key != key);
         });
     };
+
+    const addAllPurchases = () => {
+        var i;
+        var total = 0;
+        for (i = 0; i < purchases.length; i++) {
+            total = currency(total).add(purchases[i].price);
+        }
+        setTotalSpent(total);
+    }
 
     return (
         <View style={styles.container}>
@@ -79,6 +72,15 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                             <PurchaseItem item={item} removePurchase={removePurchase} />
                         )}
                     />
+                </View>
+                <View>
+                    <Button 
+                        title="sum all purchases"
+                        onPress={() => addAllPurchases({purchases})}
+                    />
+                </View>
+                <View>
+                    <Text>Total Spent: {totalSpent.toString()}</Text>
                 </View>
             </View>
         </View>

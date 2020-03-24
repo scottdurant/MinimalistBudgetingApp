@@ -8,16 +8,17 @@ export default function AddPurchaseScreen({ navigation }) {
         navigation.navigate('ViewAllPurchases', {
             description: description,
             price: price,
-            date: date
+            date: date,
         });
-   }
+    }
+
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <AddPurchase submitHandler={submitHandler} />
-               </View>
+                    <AddPurchase submitHandler={submitHandler}  />
+                </View>
             </View>
         </TouchableWithoutFeedback>
     );
