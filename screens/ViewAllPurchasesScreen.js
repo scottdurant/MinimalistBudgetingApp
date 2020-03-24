@@ -27,7 +27,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         }
     }, [route.params?.description]);
 
-
+////////////////////////// tru using useFocusEffect to call addAllPurchases when leaving the screen
 
     // takes the new description and puts it in the list of purchases
     const updatePurchaseList = () => {
@@ -44,6 +44,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
+
+        //addAllPurchases();
     }
 
     // removes a purchase when clicked
@@ -76,11 +78,12 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 <View>
                     <Button 
                         title="sum all purchases"
-                        onPress={() => addAllPurchases({purchases})}
+                        onPress={() => addAllPurchases()}
                     />
                 </View>
                 <View>
-                    <Text>Total Spent: {totalSpent.toString()}</Text>
+                    {/* <Text>Total Spent: {(totalSpent.toString())}</Text> */}
+                    <Text>Total spent: {currency(totalSpent, {formatWithSymbol: true}).format().toString()}</Text>
                 </View>
             </View>
         </View>
