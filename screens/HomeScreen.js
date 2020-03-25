@@ -5,6 +5,7 @@ import currency from 'currency.js';
 
 export default function HomeScreen({ route }) {
   const { budget } = route.params; // might need default value?
+  const { total } = route.params;
 
   return (
     <View style={styles.container}>
@@ -13,7 +14,7 @@ export default function HomeScreen({ route }) {
             <Text style={styles.getStartedText}>Total budgeted for this month: </Text>
             <Text style={styles.getStartedText}> {currency(budget, {formatWithSymbol: true}).format()}  </Text>
           <View style={styles.contentContainer}>
-            <Text style={styles.getStartedText}>Total spent this month: </Text>
+            <Text style={styles.getStartedText}>Total spent this month: {total.toString()} </Text>
           </View>
         </View>
       </ScrollView>
