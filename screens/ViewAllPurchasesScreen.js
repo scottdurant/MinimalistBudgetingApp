@@ -16,15 +16,14 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
 
-    const [totalSpent, setTotalSpent] = useState(0);
-
 
     // when navigating to this screen, check if description has been changed
     React.useEffect(() => {
         if (route.params?.description) {
             // Description updated, update the list with new description  
             updatePurchaseList();
-            navigation.navigate('Home', {total: addAllPurchases()})
+            var newTotalSpent = addAllPurchases();
+            navigation.navigate('Home', {total: newTotalSpent});
         }
     }, [route.params?.description]);
 
@@ -55,7 +54,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     };
 
     // adds up all purchases. Its a little hacky but it works
-    const addAllPurchases = () => {
+    function addAllPurchases() {
         var i;
         var total = 0;
         if (purchases.length == 0) {
@@ -77,15 +76,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                             <PurchaseItem item={item} removePurchase={removePurchase} />
                         )}
                     />
-                </View>
-                <View>
-                    <Button
-                        title="sum all purchases"
-                        onPress={() => addAllPurchases()}
-                    />
-                </View>
-                <View>
-                    <Text>Total spent: {currency(totalSpent, { formatWithSymbol: true }).format().toString()}</Text>
                 </View>
             </View>
         </View>

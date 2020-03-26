@@ -21,7 +21,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
-        initialParams={{ budget: 'aaaa', total: 0 }}
+        initialParams={{ budget: '', total: 0 }}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
