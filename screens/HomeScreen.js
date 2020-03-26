@@ -14,7 +14,7 @@ export default function HomeScreen({ route }) {
             <Text style={styles.getStartedText}>Total budgeted for this month: </Text>
             <Text style={styles.getStartedText}> {currency(budget, {formatWithSymbol: true}).format()}  </Text>
           <View style={styles.contentContainer}>
-            <Text style={styles.getStartedText}>Total spent this month: {total.toString()} </Text>
+            <Text style={styles.getStartedText}>Total spent this month: {currency(total, {formatWithSymbol: true}).format()} </Text>
           </View>
         </View>
       </ScrollView>

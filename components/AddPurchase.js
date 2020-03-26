@@ -51,6 +51,7 @@ export default function AddPurchase({ submitHandler }) {
             <TextInput
                 style={styles.input}
                 placeholder='enter purchase price'
+                keyboardType={'decimal-pad'}
                 value={state.price}
                 onChangeText={(text) => setState({ ...state, price: text })}
             />

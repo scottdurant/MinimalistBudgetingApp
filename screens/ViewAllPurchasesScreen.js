@@ -18,33 +18,21 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     const [totalSpent, setTotalSpent] = useState(0);
 
+
     // when navigating to this screen, check if description has been changed
     React.useEffect(() => {
         if (route.params?.description) {
             // Description updated, update the list with new description  
             updatePurchaseList();
+            navigation.navigate('Home', {total: addAllPurchases()})
         }
     }, [route.params?.description]);
 
-
-    // useFocusEffect(
-    //     React.useCallback(() => {
-    //         //alert('Screen was focused');
-    //         // Do something when the screen is focused
-    //         return () => {
-    //             // do something when screen goes out of foucs
-    //             addAllPurchases();
-    //         };
-    //     }, [])
-    // );
-
-    ////////////////////////// tru using useFocusEffect to call addAllPurchases when leaving the screen
 
     // takes the new description and puts it in the list of purchases
     const updatePurchaseList = () => {
         setPurchases(previousPurchases => {
             Keyboard.dismiss();
-            {/*@TODO: update how key gets generated*/ }
             return [
                 {
                     description: description,
@@ -55,6 +43,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
+        debugger;
     }
 
     // removes a purchase when clicked
@@ -62,31 +51,20 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         setPurchases(previousPurchases => {
             return previousPurchases.filter(purchase => purchase.key != key);
         });
+
     };
 
-    // const addAllPurchases = () => {
-    //     var i;
-    //     var total = 0;
-    //     //console.log(purchases.length);
-    //     for (i = 0; i < purchases.length; i++) {
-    //         //console.log(purchases[i]);
-    //         total = currency(total).add(purchases[i].price);
-    //     }
-    //     //console.log(total);
-    //     //setTotalSpent(total);
-    //     return total;
-    // }
-
-    const goHome = () => {
+    // adds up all purchases. Its a little hacky but it works
+    const addAllPurchases = () => {
         var i;
         var total = 0;
+        if (purchases.length == 0) {
+            return price;
+        }
         for (i = 0; i < purchases.length; i++) {
             total = currency(total).add(purchases[i].price);
         }
-
-        navigation.navigate('Home', {
-            total: total,
-        });
+        return currency(total).add(currency(price));
     }
 
     return (
@@ -105,17 +83,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                         title="sum all purchases"
                         onPress={() => addAllPurchases()}
                     />
-                    
-                    {/* For some reason this button makes it go to the home screen when
-                    you enter a purchase ????? */}
-                    <Button
-                        title="go home!"
-                        onPress={goHome()}
-                    />
-
                 </View>
                 <View>
-                    {/* <Text>Total Spent: {(totalSpent.toString())}</Text> */}
                     <Text>Total spent: {currency(totalSpent, { formatWithSymbol: true }).format().toString()}</Text>
                 </View>
             </View>
