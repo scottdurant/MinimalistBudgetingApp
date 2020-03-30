@@ -4,7 +4,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import AddPurchaseScreen from '../screens/AddPurchaseScreen';
 import ViewAllPurchasesScreen from '../screens/ViewAllPurchasesScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import BudgetScreen from '../screens/BudgetScreen';
 import { Ionicons } from '@expo/vector-icons';
 
 const BottomTab = createBottomTabNavigator();
@@ -21,6 +21,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
+        initialParams={{ budget: '', total: 0 }}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
@@ -37,18 +38,18 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="ViewAllPurchases"
         component={ViewAllPurchasesScreen}
-        initialParams={{ description: '' }}
+        initialParams={{ description: ''}}
         options={{
           title: 'All Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
         }}
       />
       <BottomTab.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name="Budget"
+        component={BudgetScreen}
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,
+          title: 'Budget',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-calculator" />,
         }}
       />
     </BottomTab.Navigator>
@@ -65,7 +66,7 @@ function getHeaderTitle(route) {
       return 'Add Purchase';
     case 'ViewAllPurchases':
       return 'All Purchases';
-    case 'Settings':
-      return 'Settings';
+    case 'Budget':
+      return 'Budget';
   }
 }

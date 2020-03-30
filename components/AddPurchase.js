@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 // AddPurchase component includes fields for user input and a button to submit data
 export default function AddPurchase({ submitHandler }) {
     // keeps track of what the user types in
     const [state, setState] = useState({
-        description: "",
-        price: "",
+        description: '',
+        price: '',
         date: new Date(),
     });
 
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
+
     const onChange = (value, selectedDate) => {
         const currentDate = selectedDate || state.date;
         setShow(Platform.OS === 'ios');
-        setState({...state, date: currentDate});
+        setState({ ...state, date: currentDate });
     }
 
     const showMode = currentMode => {
@@ -29,22 +31,32 @@ export default function AddPurchase({ submitHandler }) {
         showMode('date');
     }
 
+    const clearInput = () => {
+        setState({
+            description: '',
+            price: '',
+            date: new Date()
+        })
+    }
+
     return (
         <View>
             <TextInput
                 style={styles.input}
+                selectionColor={Colors.gray}
                 placeholder='enter purchase description'
                 value={state.description}
-                onChangeText={(text) => setState({...state, description: text})}
+                onChangeText={(text) => setState({ ...state, description: text })}
             />
             <TextInput
                 style={styles.input}
                 placeholder='enter purchase price'
-                value={state.price} 
-                onChangeText={(text) => setState({...state, price: text})}
+                keyboardType={'decimal-pad'}
+                value={state.price}
+                onChangeText={(text) => setState({ ...state, price: text })}
             />
             {show && (
-                <DateTimePicker 
+                <DateTimePicker
                     value={state.date}
                     mode={mode}
                     display="default"
@@ -52,7 +64,10 @@ export default function AddPurchase({ submitHandler }) {
                 />
             )}
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
-            <Button title='add purchase' style={styles.button} onPress={() => submitHandler(state.description, state.price, state.date.toDateString())} />
+            <Button title='add purchase' style={styles.button} onPress={() => {
+                submitHandler(state.description, state.price, state.date.toDateString())
+            }}
+            />
         </View>
     );
 }
