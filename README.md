@@ -60,6 +60,6 @@ You can also follow the more detailed [React Native CLI Quickstart](https://reac
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Currency.js](https://currency.js.org/)
 
-## Authors
+## Author
 
 * **Scott Durant** - [github](https://github.com/scottdurant)
