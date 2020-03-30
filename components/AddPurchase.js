@@ -14,7 +14,7 @@ export default function AddPurchase({ submitHandler }) {
 
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-   
+
 
     const onChange = (value, selectedDate) => {
         const currentDate = selectedDate || state.date;
@@ -51,6 +51,7 @@ export default function AddPurchase({ submitHandler }) {
             <TextInput
                 style={styles.input}
                 placeholder='enter purchase price'
+                keyboardType={'decimal-pad'}
                 value={state.price}
                 onChangeText={(text) => setState({ ...state, price: text })}
             />
@@ -65,7 +66,6 @@ export default function AddPurchase({ submitHandler }) {
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
             <Button title='add purchase' style={styles.button} onPress={() => {
                 submitHandler(state.description, state.price, state.date.toDateString())
-                clearInput();   // might cause issues????????
             }}
             />
         </View>

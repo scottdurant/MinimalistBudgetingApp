@@ -21,7 +21,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
-        initialParams={{ budget: 'aaaa' }}
+        initialParams={{ budget: '', total: 0 }}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
@@ -38,7 +38,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="ViewAllPurchases"
         component={ViewAllPurchasesScreen}
-        initialParams={{ description: '' }}
+        initialParams={{ description: ''}}
         options={{
           title: 'All Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
