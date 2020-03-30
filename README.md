@@ -1,6 +1,6 @@
 # Minimalist Budgeting App
 
-This project is an Android app build with React Native that will help users budget their money. The main goal with this project is to create something that is simple and
+This project is an Android app build with React Native that will help users budget their money. The main goal is to create something that is simple and
 easy to use, which will encourage users to enter their purchases regularly and stay within their budgets.
 
 ## Structure
