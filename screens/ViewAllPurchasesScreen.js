@@ -23,7 +23,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             // Description updated, update the list with new description  
             updatePurchaseList();
             var newTotalSpent = addAllPurchases();
-            navigation.navigate('Home', {total: newTotalSpent});
+            navigation.navigate('Home', { total: newTotalSpent });
         }
     }, [route.params?.description]);
 
@@ -51,7 +51,21 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return previousPurchases.filter(purchase => purchase.key != key);
         });
 
+        // go to home screen and add up the purchases without the removed purchase
+        navigation.navigate('Home', {total: addAllPurchasesAfterRemoval(key)});
     };
+
+    const addAllPurchasesAfterRemoval = (keyToSkip) => {
+        var i = 0;
+        var total = 0;
+
+        for (i = 0; i < purchases.length; i++) {
+            if (purchases[i].key != keyToSkip) {
+                total = currency(total).add(purchases[i].price);
+            }
+        }
+        return currency(total);
+    }
 
     // adds up all purchases. Its a little hacky but it works
     function addAllPurchases() {
@@ -60,9 +74,11 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         if (purchases.length == 0) {
             return price;
         }
+
         for (i = 0; i < purchases.length; i++) {
             total = currency(total).add(purchases[i].price);
         }
+        
         return currency(total).add(currency(price));
     }
 
