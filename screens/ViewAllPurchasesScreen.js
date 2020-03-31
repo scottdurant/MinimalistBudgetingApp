@@ -22,7 +22,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         if (route.params?.description) {
             // Description updated, update the list with new description  
             updatePurchaseList();
-            var newTotalSpent = addAllPurchases();
+            var newTotalSpent = addAllPurchases().toString();
             navigation.navigate('Home', { total: newTotalSpent });
         }
     }, [route.params?.description]);
@@ -52,7 +52,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         });
 
         // go to home screen and add up the purchases without the removed purchase
-        navigation.navigate('Home', {total: addAllPurchasesAfterRemoval(key)});
+        navigation.navigate('Home', {total: addAllPurchasesAfterRemoval(key).toString()});
     };
 
     const addAllPurchasesAfterRemoval = (keyToSkip) => {
