@@ -63,8 +63,8 @@ export default function AddPurchase({ submitHandler }) {
                     onChange={onChange}
                 />
             )}
-            <Button title='select date' style={styles.button} onPress={showDatePicker} />
-            <Button title='add purchase' style={styles.button} onPress={() => {
+            <Button title='select date' style={styles.button} color={'green'} onPress={showDatePicker} />
+            <Button title='add purchase' style={styles.button} color={'orange'} onPress={() => {
                 submitHandler(state.description, state.price, state.date.toDateString())
             }}
             />
