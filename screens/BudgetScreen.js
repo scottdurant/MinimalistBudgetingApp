@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation }) {
-    const[state, setState] = useState({
+    const [state, setState] = useState({
         budget: ''
     });
 
@@ -14,19 +14,20 @@ export default function AddPurchaseScreen({ navigation }) {
     }
 
     const clearText = () => {
-        setState({budget: ''});
+        setState({ budget: '' });
     }
 
     return (
         <View style={styles.mainContainer}>
-            <Text style={styles.paragraphText}>Update your monthly budget here. This number is the 
+            <Text style={styles.paragraphText}>Update your monthly budget here. This number is the
             total amount of money you expect to spend this month.
             </Text>
             <TextInput
                 style={styles.input}
+                keyboardType={'decimal-pad'}
                 placeholder='total budget for this month'
                 value={state.budget}
-                onChangeText={(text) => setState({...state, budget: text})}
+                onChangeText={(text) => setState({ ...state, budget: text })}
             />
             <Button
                 title='Update Monthly Budget'
@@ -34,7 +35,8 @@ export default function AddPurchaseScreen({ navigation }) {
                 style={styles.button}
                 onPress={() => {
                     submitHandler(state.budget)
-                    clearText()}
+                    clearText()
+                }
                 }
             />
         </View>

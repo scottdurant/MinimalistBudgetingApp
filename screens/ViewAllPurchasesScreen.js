@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, Button } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, Button, ScrollView, SafeAreaView } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import PurchaseItem from '../components/PurchaseItem';
 import currency from 'currency.js';
@@ -52,7 +52,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         });
 
         // go to home screen and add up the purchases without the removed purchase
-        navigation.navigate('Home', {total: addAllPurchasesAfterRemoval(key).toString()});
+        navigation.navigate('Home', { total: addAllPurchasesAfterRemoval(key).toString() });
     };
 
     const addAllPurchasesAfterRemoval = (keyToSkip) => {
@@ -78,7 +78,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         for (i = 0; i < purchases.length; i++) {
             total = currency(total).add(purchases[i].price);
         }
-        
+
         return currency(total).add(currency(price));
     }
 
@@ -87,6 +87,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             <View style={styles.content}>
                 <View style={styles.list}>
                     <FlatList
+                        showsVerticalScrollIndicator={false}
                         data={purchases}
                         renderItem={({ item }) => (
                             <PurchaseItem item={item} removePurchase={removePurchase} />
@@ -107,7 +108,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     content: {
-        padding: 40,
+        paddingTop: 8,
+        paddingBottom: 12,
+        paddingLeft: 40,
+        paddingRight: 40,
     },
     headline: {
         textAlign: 'center', // <-- the magic
@@ -133,6 +137,6 @@ const styles = StyleSheet.create({
         bottom: 0
     },
     list: {
-        marginTop: 20,
+        marginTop: 0,
     },
 })

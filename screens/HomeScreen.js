@@ -6,7 +6,7 @@ import currency from 'currency.js';
 export default function HomeScreen({ route }) {
   const { budget } = route.params; // might need default value?
   const { total } = route.params;
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.getStartedContainer}>
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   getStartedText: {
+    fontFamily: 'quicksand',
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
