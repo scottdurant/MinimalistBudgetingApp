@@ -9,19 +9,17 @@ export default function HomeScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.getStartedContainer}>
-          <Text style={styles.getStartedText}>Total budgeted for this month: </Text>
-          <Text style={styles.getStartedText}> {currency(budget, { formatWithSymbol: true }).format()}  </Text>
-        </View>
-        <View style={styles.contentContainer}>
-          <Text style={styles.getStartedText}>Total spent this month:</Text>
-          <Text style={styles.getStartedText}> {currency(total, { formatWithSymbol: true }).format()} </Text>
-        </View>
-        <View style={styles.contentContainer}>
-          <Text style={styles.getStartedText}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
-        </View>
-      </ScrollView>
+      <View style={styles.getStartedContainer}>
+        <Text style={styles.currencyTextSpent}>
+          {currency(total, { formatWithSymbol: true }).format()}
+        </Text>
+        <Text style={styles.currencyTextBudgeted}>
+          {currency(budget, { formatWithSymbol: true }).format()}
+        </Text>
+      </View>
+      <View style={styles.contentContainer}>
+        <Text style={styles.getStartedText}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
+      </View>
     </View>
   );
 }
@@ -36,6 +34,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    //justifyContent: 'center',
+    //alignItems: 'center'
   },
   contentContainer: {
     paddingTop: 20,
@@ -44,10 +44,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
   },
+  currencyTextSpent: {
+    fontFamily: 'quicksand',
+    fontSize: 48,
+    textAlign: 'center',
+    paddingTop: 60,
+    borderBottomWidth: 2,
+    borderBottomColor: 'grey',
+    paddingBottom: 5
+  },
+  currencyTextBudgeted: {
+    fontFamily: 'quicksand',
+    fontSize: 48,
+    textAlign: 'center',
+  },
   getStartedText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
+    marginTop: 20
   },
 });
