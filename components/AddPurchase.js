@@ -63,8 +63,10 @@ export default function AddPurchase({ submitHandler }) {
                     onChange={onChange}
                 />
             )}
-            <Button title='select date' style={styles.button} color={'green'} onPress={showDatePicker} />
-            <Button title='add purchase' style={styles.button} color={'orange'} onPress={() => {
+
+            <Button title='select date' style={styles.button} onPress={showDatePicker} />
+            <View style={styles.separator} ></View>
+            <Button title='add purchase' style={styles.button} onPress={() => {
                 submitHandler(state.description, state.price, state.date.toDateString())
             }}
             />
@@ -82,7 +84,9 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
         textAlign: 'center'
     },
-    button: {
-        marginTop: 20
-    }
+    separator: {
+        marginVertical: 6,
+        // borderBottomColor: '#737373',
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+    },
 })
