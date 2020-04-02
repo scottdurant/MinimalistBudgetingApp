@@ -31,7 +31,6 @@ export default function App(props) {
           ...Ionicons.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
           'quicksand': require('./assets/fonts/Quicksand-VariableFont_wght.ttf'),
-          'inconsolata': require('./assets/fonts/Inconsolata-Regular.ttf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

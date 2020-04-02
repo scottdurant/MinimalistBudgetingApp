@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderRadius: 10,
+    fontFamily: 'quicksand'
   },
 });

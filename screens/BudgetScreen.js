@@ -19,13 +19,11 @@ export default function AddPurchaseScreen({ navigation }) {
 
     return (
         <View style={styles.mainContainer}>
-            <Text style={styles.paragraphText}>Update your monthly budget here. This number is the
-            total amount of money you expect to spend this month.
-            </Text>
+            <Text style={styles.paragraphText}>Enter the total amount of money you expect to spend this month.</Text>
             <TextInput
                 style={styles.input}
                 keyboardType={'decimal-pad'}
-                placeholder='total budget for this month'
+                placeholder='        $0.00        '
                 value={state.budget}
                 onChangeText={(text) => setState({ ...state, budget: text })}
             />
@@ -47,14 +45,6 @@ export default function AddPurchaseScreen({ navigation }) {
 
 
 const styles = StyleSheet.create({
-    headline: {
-        textAlign: 'center', // <-- the magic
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 18,
-        marginTop: 12,
-        marginBottom: 12,
-    },
     mainContainer: {
         flex: 1,
         backgroundColor: '#fff',
@@ -63,16 +53,10 @@ const styles = StyleSheet.create({
         paddingTop: (Platform.OS === 'ios') ? 20 : 0
     },
     paragraphText: {
-        alignItems: 'center',
-        marginHorizontal: 40,
-    },
-    bottomView: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        //alignItems: 'center',
-        position: 'absolute',
-        bottom: 0
+        textAlign: 'center',
+        marginHorizontal: 60,
+        fontFamily: 'quicksand',
+        fontSize: 18
     },
     input: {
         marginBottom: 10,
