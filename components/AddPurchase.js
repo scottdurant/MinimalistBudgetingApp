@@ -39,6 +39,25 @@ export default function AddPurchase({ submitHandler }) {
         })
     }
 
+    const vaildateAndSetPurchasePrice = (text) => {
+        if (/\s/.test(text)) {
+            alert('Price cannot contain whitespace!');
+            return;
+        }
+
+        if ( !text.match(/^[0-9.]*$/) ) {
+            alert('Price can only contain digits and decimals!');
+            return;
+        }
+
+        if (text.length > 9) {
+            alert('You don\'t really have that much money, do you? :)' );
+            return
+        }
+
+        setState({ ...state, price: text });
+    }
+
     return (
         <View>
             <TextInput
@@ -53,7 +72,7 @@ export default function AddPurchase({ submitHandler }) {
                 placeholder='enter purchase price'
                 keyboardType={'decimal-pad'}
                 value={state.price}
-                onChangeText={(text) => setState({ ...state, price: text })}
+                onChangeText={(text) => vaildateAndSetPurchasePrice(text)}
             />
             {show && (
                 <DateTimePicker
