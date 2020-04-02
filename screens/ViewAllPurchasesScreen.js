@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, Button, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Keyboard, Button, ToastAndroid, Alert } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import PurchaseItem from '../components/PurchaseItem';
 import currency from 'currency.js';
@@ -50,10 +50,33 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         setPurchases(previousPurchases => {
             return previousPurchases.filter(purchase => purchase.key != key);
         });
+        ToastAndroid.show("purchase removed", ToastAndroid.SHORT);
 
         // go to home screen and add up the purchases without the removed purchase
         navigation.navigate('Home', { total: addAllPurchasesAfterRemoval(key).toString() });
     };
+
+
+    const removeAllPurchases = () => {
+        setPurchases(previousPurchases => {
+            return previousPurchases.filter(purchase => false);
+        });
+        ToastAndroid.show("all purchases removed", ToastAndroid.SHORT);
+        navigation.navigate('Home', { total: 0});
+    }
+
+    // creates an alert for the remove all purchases button
+    const callAlert = () => {
+        Alert.alert(
+            'Are you sure you want to remove all purchases?',
+            'This cannot be undone.',
+            [
+                {text: 'no', onPress: () => {}},
+                {text: 'yes', onPress: () => removeAllPurchases()},
+            ],
+            { cancelable: false }
+        )
+    }
 
     const addAllPurchasesAfterRemoval = (keyToSkip) => {
         var i = 0;
@@ -94,6 +117,11 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                         )}
                     />
                 </View>
+                <Button
+                    title="remove all purchases"
+                    color="red"
+                    onPress={() => callAlert()}
+                />
             </View>
         </View>
     );
@@ -139,4 +167,7 @@ const styles = StyleSheet.create({
     list: {
         marginTop: 0,
     },
+    button: {
+        flex: 1
+    }
 })
