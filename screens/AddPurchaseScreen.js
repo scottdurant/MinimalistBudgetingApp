@@ -5,6 +5,21 @@ import AddPurchase from '../components/AddPurchase';
 export default function AddPurchaseScreen({ navigation }) {
     // send the description to ViewAllPurchasesScreen
     const submitHandler = (description, price, date) => {
+        if (description.length == 0) {
+            alert('Please enter a description.');
+        }
+        if (description[0] == ' ') {
+            alert('Please enter a description.');
+            return;
+        }
+        if (price.length == 0) {
+            alert('Please enter a price.');
+            return;
+        }
+        if ((price.split(".").length) > 2) {
+            alert('Price contains too many decimals.');
+            return;
+        }
         navigation.navigate('ViewAllPurchases', {
             description: description,
             price: price,

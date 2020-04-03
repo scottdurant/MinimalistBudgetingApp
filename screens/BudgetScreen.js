@@ -7,9 +7,31 @@ export default function AddPurchaseScreen({ navigation }) {
         budget: ''
     });
 
-    const submitHandler = (budget) => {
+    const submitHandler = (text) => {
+        if (/\s/.test(text)) {
+            alert('Price cannot contain whitespace!');
+            return;
+        }
+
+        if (!text.match(/^[0-9.]*$/)) {
+            alert('Price can only contain digits and decimals!');
+            return;
+        }
+
+        if (text.length > 9) {
+            alert('You don\'t really have that much money, do you? :)');
+            return
+        }
+        if (text.length == 0) {
+            alert('Please enter a price.');
+            return;
+        }
+        if ((text.split(".").length) > 2) {
+            alert('Price contains too many decimals.');
+            return;
+        }
         navigation.navigate('Home', {
-            budget: budget,
+            budget: text,
         });
     }
 
