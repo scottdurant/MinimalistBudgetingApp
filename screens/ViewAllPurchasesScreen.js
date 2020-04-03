@@ -62,7 +62,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return previousPurchases.filter(purchase => false);
         });
         ToastAndroid.show("all purchases removed", ToastAndroid.SHORT);
-        navigation.navigate('Home', { total: 0});
+        navigation.navigate('Home', { total: 0 });
     }
 
     // creates an alert for the remove all purchases button
@@ -71,8 +71,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             'Are you sure you want to remove all purchases?',
             'This cannot be undone.',
             [
-                {text: 'no', onPress: () => {}},
-                {text: 'yes', onPress: () => removeAllPurchases()},
+                { text: 'no', onPress: () => { } },
+                { text: 'yes', onPress: () => removeAllPurchases() },
             ],
             { cancelable: false }
         )
@@ -107,22 +107,24 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.content}>
-                <View style={styles.list}>
-                    <FlatList
+            <View style={styles.list}>
+                <FlatList
                         showsVerticalScrollIndicator={false}
                         data={purchases}
                         renderItem={({ item }) => (
                             <PurchaseItem item={item} removePurchase={removePurchase} />
                         )}
                     />
-                </View>
+            </View>
+
+            <View style={styles.button}>
                 <Button
                     title="remove all purchases"
-                    color="red"
+                    color="#ff1a1a"
                     onPress={() => callAlert()}
                 />
             </View>
+
         </View>
     );
 }
@@ -135,39 +137,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    content: {
-        paddingTop: 8,
-        paddingBottom: 12,
-        paddingLeft: 40,
-        paddingRight: 40,
-    },
-    headline: {
-        textAlign: 'center', // <-- the magic
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 18,
-        marginTop: 12,
-        marginBottom: 12,
-    },
-    mainContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        //paddingTop: (Platform.OS === 'ios') ? 20 : 0
-    },
-    bottomView: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        //alignItems: 'center',
-        position: 'absolute',
-        bottom: 0
-    },
     list: {
-        marginTop: 0,
+        //marginTop: 0,
+        flex: 5,
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 22,
+        paddingRight: 22
     },
     button: {
-        flex: 1
+        flex: 1,
+        paddingLeft: 18,
+        paddingRight: 18,
+        justifyContent: 'center',
+        // backgroundColor: '#e6e6e6'
     }
-})
+});
