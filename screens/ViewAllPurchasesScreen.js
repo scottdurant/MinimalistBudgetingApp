@@ -3,14 +3,13 @@ import { StyleSheet, View, Keyboard, Button, ToastAndroid, Alert } from 'react-n
 import { FlatList } from 'react-native-gesture-handler';
 import PurchaseItem from '../components/PurchaseItem';
 import currency from 'currency.js';
-import { useFocusEffect } from '@react-navigation/native';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
     // receive values from AddPurchaseScreen
     const { description } = route.params;   // needs a default value
     const { price } = route.params;
     const { date } = route.params;
-
+    
     // list of purchases with some default values
     const [purchases, setPurchases] = useState([
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
@@ -138,7 +137,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     list: {
-        //marginTop: 0,
         flex: 5,
         paddingTop: 12,
         paddingBottom: 12,
@@ -150,6 +148,5 @@ const styles = StyleSheet.create({
         paddingLeft: 18,
         paddingRight: 18,
         justifyContent: 'center',
-        // backgroundColor: '#e6e6e6'
     }
 });

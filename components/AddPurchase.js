@@ -5,7 +5,6 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 // AddPurchase component includes fields for user input and a button to submit data
 export default function AddPurchase({ submitHandler }) {
-    // keeps track of what the user types in
     const [state, setState] = useState({
         description: '',
         price: '',
@@ -16,7 +15,7 @@ export default function AddPurchase({ submitHandler }) {
     const [show, setShow] = useState(false);
 
 
-    const onChange = (value, selectedDate) => {
+    const onChange = (selectedDate) => {
         const currentDate = selectedDate || state.date;
         setShow(Platform.OS === 'ios');
         setState({ ...state, date: currentDate });
@@ -35,7 +34,7 @@ export default function AddPurchase({ submitHandler }) {
         setState({
             description: '',
             price: '',
-            date: new Date()
+            date: new Date(),
         })
     }
 
@@ -86,7 +85,8 @@ export default function AddPurchase({ submitHandler }) {
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
             <View style={styles.separator} ></View>
             <Button title='add purchase' style={styles.button} onPress={() => {
-                submitHandler(state.description, state.price, state.date.toDateString())
+                submitHandler(state.description, state.price, state.date.toDateString(),)
+                clearInput();
             }}
             />
         </View>
@@ -105,7 +105,5 @@ const styles = StyleSheet.create({
     },
     separator: {
         marginVertical: 6,
-        // borderBottomColor: '#737373',
-        // borderBottomWidth: StyleSheet.hairlineWidth,
     },
 })

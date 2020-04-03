@@ -41,47 +41,12 @@ export default function AddPurchaseScreen({ navigation }) {
 
 
 const styles = StyleSheet.create({
-    header: {
-        textAlign: 'center', // <-- the magic
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 20,
-        marginTop: 18,
-        marginBottom: 12,
-    },
-    mainContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        //paddingTop: (Platform.OS === 'ios') ? 20 : 0
-    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
     content: {
         padding: 40,
-    },
-    list: {
-        marginTop: 20,
-    },
-    bottomView: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        //alignItems: 'center',
-        position: 'absolute',
-        bottom: 0
-    },
-    inputText: {
-        textAlign: 'center',
-        fontSize: 14,
-        color: 'grey',
-        height: 40,
-        borderColor: 'gray',
-        borderBottomWidth: 1
     }
-
 });
 
