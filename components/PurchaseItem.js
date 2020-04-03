@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     borderColor: '#bbb',
     borderWidth: 1,
-    borderStyle: "dashed",
-    borderRadius: 1,
+    borderStyle: "solid",
     borderRadius: 10,
+    fontFamily: 'quicksand'
   },
 });

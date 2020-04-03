@@ -5,7 +5,6 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 // AddPurchase component includes fields for user input and a button to submit data
 export default function AddPurchase({ submitHandler }) {
-    // keeps track of what the user types in
     const [state, setState] = useState({
         description: '',
         price: '',
@@ -16,7 +15,7 @@ export default function AddPurchase({ submitHandler }) {
     const [show, setShow] = useState(false);
 
 
-    const onChange = (value, selectedDate) => {
+    const onChange = (selectedDate) => {
         const currentDate = selectedDate || state.date;
         setShow(Platform.OS === 'ios');
         setState({ ...state, date: currentDate });
@@ -35,8 +34,27 @@ export default function AddPurchase({ submitHandler }) {
         setState({
             description: '',
             price: '',
-            date: new Date()
+            date: new Date(),
         })
+    }
+
+    const vaildateAndSetPurchasePrice = (text) => {
+        if (/\s/.test(text)) {
+            alert('Price cannot contain whitespace!');
+            return;
+        }
+
+        if ( !text.match(/^[0-9.]*$/) ) {
+            alert('Price can only contain digits and decimals!');
+            return;
+        }
+
+        if (text.length > 9) {
+            alert('You don\'t really have that much money, do you? :)' );
+            return
+        }
+
+        setState({ ...state, price: text });
     }
 
     return (
@@ -53,7 +71,7 @@ export default function AddPurchase({ submitHandler }) {
                 placeholder='enter purchase price'
                 keyboardType={'decimal-pad'}
                 value={state.price}
-                onChangeText={(text) => setState({ ...state, price: text })}
+                onChangeText={(text) => vaildateAndSetPurchasePrice(text)}
             />
             {show && (
                 <DateTimePicker
@@ -63,9 +81,12 @@ export default function AddPurchase({ submitHandler }) {
                     onChange={onChange}
                 />
             )}
+
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
+            <View style={styles.separator} ></View>
             <Button title='add purchase' style={styles.button} onPress={() => {
-                submitHandler(state.description, state.price, state.date.toDateString())
+                submitHandler(state.description, state.price, state.date.toDateString(),)
+                clearInput();
             }}
             />
         </View>
@@ -82,7 +103,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
         textAlign: 'center'
     },
-    button: {
-        marginTop: 20
-    }
+    separator: {
+        marginVertical: 6,
+    },
 })

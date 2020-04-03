@@ -3,30 +3,51 @@ import { StyleSheet, Text, View, Button, } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation }) {
-    const[state, setState] = useState({
+    const [state, setState] = useState({
         budget: ''
     });
 
-    const submitHandler = (budget) => {
+    const submitHandler = (text) => {
+        if (/\s/.test(text)) {
+            alert('Price cannot contain whitespace!');
+            return;
+        }
+
+        if (!text.match(/^[0-9.]*$/)) {
+            alert('Price can only contain digits and decimals!');
+            return;
+        }
+
+        if (text.length > 9) {
+            alert('You don\'t really have that much money, do you? :)');
+            return
+        }
+        if (text.length == 0) {
+            alert('Please enter a price.');
+            return;
+        }
+        if ((text.split(".").length) > 2) {
+            alert('Price contains too many decimals.');
+            return;
+        }
         navigation.navigate('Home', {
-            budget: budget,
+            budget: text,
         });
     }
 
     const clearText = () => {
-        setState({budget: ''});
+        setState({ budget: '' });
     }
 
     return (
         <View style={styles.mainContainer}>
-            <Text style={styles.paragraphText}>Update your monthly budget here. This number is the 
-            total amount of money you expect to spend this month.
-            </Text>
+            <Text style={styles.paragraphText}>Enter the total amount of money you expect to spend this month.</Text>
             <TextInput
                 style={styles.input}
-                placeholder='total budget for this month'
+                keyboardType={'decimal-pad'}
+                placeholder='        $0.00        '
                 value={state.budget}
-                onChangeText={(text) => setState({...state, budget: text})}
+                onChangeText={(text) => setState({ ...state, budget: text })}
             />
             <Button
                 title='Update Monthly Budget'
@@ -34,7 +55,8 @@ export default function AddPurchaseScreen({ navigation }) {
                 style={styles.button}
                 onPress={() => {
                     submitHandler(state.budget)
-                    clearText()}
+                    clearText()
+                }
                 }
             />
         </View>
@@ -45,14 +67,6 @@ export default function AddPurchaseScreen({ navigation }) {
 
 
 const styles = StyleSheet.create({
-    headline: {
-        textAlign: 'center', // <-- the magic
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 18,
-        marginTop: 12,
-        marginBottom: 12,
-    },
     mainContainer: {
         flex: 1,
         backgroundColor: '#fff',
@@ -61,16 +75,10 @@ const styles = StyleSheet.create({
         paddingTop: (Platform.OS === 'ios') ? 20 : 0
     },
     paragraphText: {
-        alignItems: 'center',
-        marginHorizontal: 40,
-    },
-    bottomView: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        //alignItems: 'center',
-        position: 'absolute',
-        bottom: 0
+        textAlign: 'center',
+        marginHorizontal: 60,
+        fontFamily: 'quicksand',
+        fontSize: 18
     },
     input: {
         marginBottom: 10,
