@@ -9,25 +9,25 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { description } = route.params;   // needs a default value
     const { price } = route.params;
     const { date } = route.params;
+    const { key } = route.params;
     
-    // list of purchases with some default values
+    // list of purchases
     const [purchases, setPurchases] = useState([
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
 
 
-    // when navigating to this screen, check if description has been changed
+    // when navigating to this screen, if key has been changed, there's a new item
     React.useEffect(() => {
-        if (route.params?.description) {
-            // Description updated, update the list with new description  
+        if (route.params?.key) {
             updatePurchaseList();
             var newTotalSpent = addAllPurchases().toString();
             navigation.navigate('Home', { total: newTotalSpent });
         }
-    }, [route.params?.description]);
+    }, [route.params?.key]);
 
 
-    // takes the new description and puts it in the list of purchases
+    // puts new purchase in the list of purchases
     const updatePurchaseList = () => {
         setPurchases(previousPurchases => {
             Keyboard.dismiss();
@@ -36,7 +36,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     description: description,
                     price: price,
                     date: date,
-                    key: Math.random().toString()
+                    key: key, 
                 },
                 ...previousPurchases
             ];
@@ -44,7 +44,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         debugger;
     }
 
-    // removes a purchase when clicked
+
     const removePurchase = (key) => {
         setPurchases(previousPurchases => {
             return previousPurchases.filter(purchase => purchase.key != key);

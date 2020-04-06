@@ -4,7 +4,7 @@ import AddPurchase from '../components/AddPurchase';
 
 export default function AddPurchaseScreen({ navigation }) {
     // send the description to ViewAllPurchasesScreen
-    const submitHandler = (description, price, date) => {
+    const submitHandler = (description, price, date,) => {
         if (description.length == 0) {
             alert('Please enter a description.');
         }
@@ -24,6 +24,7 @@ export default function AddPurchaseScreen({ navigation }) {
             description: description,
             price: price,
             date: date,
+            key: Math.random().toString(),
         });
     }
 
