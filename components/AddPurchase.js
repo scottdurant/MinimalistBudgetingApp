@@ -9,6 +9,7 @@ export default function AddPurchase({ submitHandler }) {
         description: '',
         price: '',
         date: new Date(),
+        key: '',
     });
 
     const [mode, setMode] = useState('date');
@@ -85,7 +86,7 @@ export default function AddPurchase({ submitHandler }) {
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
             <View style={styles.separator} ></View>
             <Button title='add purchase' style={styles.button} onPress={() => {
-                submitHandler(state.description, state.price, state.date.toDateString(),)
+                submitHandler(state.description, state.price, state.date.toDateString(), state.key)
                 clearInput();
             }}
             />

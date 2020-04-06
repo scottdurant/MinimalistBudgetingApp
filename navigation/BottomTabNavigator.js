@@ -38,7 +38,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       <BottomTab.Screen
         name="ViewAllPurchases"
         component={ViewAllPurchasesScreen}
-        initialParams={{ description: ''}}
+        initialParams={{ description: '', key: ''}}
         options={{
           title: 'All Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
