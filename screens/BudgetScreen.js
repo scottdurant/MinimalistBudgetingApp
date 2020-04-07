@@ -4,10 +4,13 @@ import { TextInput } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation }) {
     const [state, setState] = useState({
-        budget: ''
+        budget: '',
+        categoryName: '',
+        categoryAmountSpent: '',
+        categoryAmountBudgeted: '',
     });
 
-    const submitHandler = (text) => {
+    const budgetSubmitHandler = (text) => {
         if (/\s/.test(text)) {
             alert('Price cannot contain whitespace!');
             return;
@@ -35,6 +38,13 @@ export default function AddPurchaseScreen({ navigation }) {
         });
     }
 
+    const categorySubmitHandler = (text) => {
+        navigation.navigate('ViewAllPurchases', {
+            categoryName: text,
+        });
+    }
+
+
     const clearText = () => {
         setState({ budget: '' });
     }
@@ -42,23 +52,40 @@ export default function AddPurchaseScreen({ navigation }) {
     return (
         <View style={styles.mainContainer}>
             <Text style={styles.paragraphText}>Enter the total amount of money you expect to spend this month.</Text>
-            <TextInput
-                style={styles.input}
-                keyboardType={'decimal-pad'}
-                placeholder='        $0.00        '
-                value={state.budget}
-                onChangeText={(text) => setState({ ...state, budget: text })}
-            />
-            <Button
-                title='Update Monthly Budget'
-                clearTextOnFocus={true}
-                style={styles.button}
-                onPress={() => {
-                    submitHandler(state.budget)
-                    clearText()
-                }
-                }
-            />
+            <View>
+                <TextInput
+                    style={styles.input}
+                    keyboardType={'decimal-pad'}
+                    placeholder='        $0.00        '
+                    value={state.budget}
+                    onChangeText={(text) => setState({ ...state, budget: text })}
+                />
+                <Button
+                    title='Update Monthly Budget'
+                    clearTextOnFocus={true}
+                    style={styles.button}
+                    onPress={() => {
+                        budgetSubmitHandler(state.budget)
+                        clearText()
+                    }
+                    }
+                />
+            </View>
+            <View>
+                <Text style={styles.paragraphText}>Create an expense cagetory (i.e. groceries, rent, clothes)</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder='category name'
+                    value={state.categoryName}
+                    onChangeText={(text) => setState({ ...state, categoryName: text })}
+                />
+                <Button
+                    title="Submit"
+                    onPress={() => 
+                        categorySubmitHandler(state.categoryName)
+                    }
+                />
+            </View>
         </View>
     );
 }
@@ -71,7 +98,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        //justifyContent: 'center',
         paddingTop: (Platform.OS === 'ios') ? 20 : 0
     },
     paragraphText: {

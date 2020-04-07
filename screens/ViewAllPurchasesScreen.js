@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Keyboard, Button, ToastAndroid, Alert } from 'react-native';
+import { StyleSheet, View, Keyboard, Button, ToastAndroid, Alert, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import PurchaseItem from '../components/PurchaseItem';
 import currency from 'currency.js';
@@ -10,7 +10,14 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { price } = route.params;
     const { date } = route.params;
     const { key } = route.params;
-    
+
+    // receive values from BudgetScreen
+    const { categoryName } = route.params;
+
+
+
+    const [showAllPurchases, setShowAllPurchases] = useState(true);
+
     // list of purchases
     const [purchases, setPurchases] = useState([
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
@@ -36,7 +43,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     description: description,
                     price: price,
                     date: date,
-                    key: key, 
+                    key: key,
                 },
                 ...previousPurchases
             ];
@@ -106,20 +113,28 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View style={styles.list}>
-                <FlatList
+                {showAllPurchases && (
+                    <FlatList
                         showsVerticalScrollIndicator={false}
                         data={purchases}
                         renderItem={({ item }) => (
                             <PurchaseItem item={item} removePurchase={removePurchase} />
                         )}
                     />
+                )}
+                {!showAllPurchases && (
+                    <Text>List of categories!</Text>
+                )}
             </View>
-
             <View style={styles.button}>
                 <Button
                     title="remove all purchases"
                     color="#ff1a1a"
                     onPress={() => callAlert()}
+                />
+                <Button
+                    title="Toggle All Purchases and Spending Categories"
+                    onPress={() => setShowAllPurchases(!showAllPurchases)}
                 />
             </View>
 
