@@ -41,7 +41,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
-        debugger;
     }
 
 
