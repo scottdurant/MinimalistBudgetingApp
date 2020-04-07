@@ -16,7 +16,8 @@ export default function AddPurchase({ submitHandler }) {
     const [show, setShow] = useState(false);
 
 
-    const onChange = (selectedDate) => {
+    // event MUST be one of the parameters here
+    const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || state.date;
         setShow(Platform.OS === 'ios');
         setState({ ...state, date: currentDate });
@@ -86,6 +87,7 @@ export default function AddPurchase({ submitHandler }) {
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
             <View style={styles.separator} ></View>
             <Button title='add purchase' style={styles.button} onPress={() => {
+                //debugger;
                 submitHandler(state.description, state.price, state.date.toDateString(), state.key)
                 clearInput();
             }}
