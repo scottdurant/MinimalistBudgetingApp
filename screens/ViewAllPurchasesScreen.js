@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Keyboard, Button, ToastAndroid, Alert, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import CategoryItem from '../components/CategoryItem';
 import PurchaseItem from '../components/PurchaseItem';
 import currency from 'currency.js';
 
@@ -22,6 +23,11 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const [purchases, setPurchases] = useState([
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
+
+    // list of spending categories
+    const [spendingCategories, setSpendingCategories] = useState([
+        {categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50'}
+    ])
 
 
     // when navigating to this screen, if key has been changed, there's a new item
@@ -123,7 +129,13 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     />
                 )}
                 {!showAllPurchases && (
-                    <Text>List of categories!</Text>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={spendingCategories}
+                        renderItem={({ item }) => (
+                            <CategoryItem item={item} />
+                        )}
+                    />
                 )}
             </View>
             <View style={styles.button}>
