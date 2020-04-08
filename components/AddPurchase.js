@@ -10,6 +10,7 @@ export default function AddPurchase({ submitHandler }) {
         price: '',
         date: new Date(),
         key: '',
+        change: true
     });
 
     const [mode, setMode] = useState('date');

@@ -15,18 +15,18 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     // receive values from BudgetScreen
     const { categoryName } = route.params;
 
+    // let's us use categoryName as the key, so we don't interfere with key from purchases
+    const keyExtractor = item => item.categoryName;
 
 
     const [showAllPurchases, setShowAllPurchases] = useState(true);
 
-    // list of purchases
     const [purchases, setPurchases] = useState([
         //{ description: 'groceries', price: '32', date: '',  key: '1' },
     ]);
 
-    // list of spending categories
     const [spendingCategories, setSpendingCategories] = useState([
-        {categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50'}
+        //{ categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50', key: '1' }
     ])
 
 
@@ -38,7 +38,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             navigation.navigate('Home', { total: newTotalSpent });
         }
     }, [route.params?.key]);
-
 
     // puts new purchase in the list of purchases
     const updatePurchaseList = () => {
@@ -54,6 +53,34 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 ...previousPurchases
             ];
         });
+    }
+
+    const updateCategoryList = () => {
+        setSpendingCategories(previousCategories => {
+            Keyboard.dismiss();
+            return [
+                {
+                    categoryName: categoryName,
+                    categoryKey: categoryKey
+                },
+                ...previousCategories
+            ];
+        });
+    }
+
+    // returns true if there's a new category, false otherwise. Prevents duplicate categories
+    const newCategory = () => {
+        console.log('checking for new category...')
+        var i;
+        if (spendingCategories != null && spendingCategories !== undefined) {
+            for (i = 0; i < spendingCategories.length; i++) {
+                if (spendingCategories[i].categoryName === categoryName) {
+                    return false
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
 
@@ -132,6 +159,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={spendingCategories}
+                        keyExtractor={keyExtractor}
                         renderItem={({ item }) => (
                             <CategoryItem item={item} />
                         )}
@@ -146,7 +174,12 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 />
                 <Button
                     title="Toggle All Purchases and Spending Categories"
-                    onPress={() => setShowAllPurchases(!showAllPurchases)}
+                    onPress={() => {
+                        setShowAllPurchases(!showAllPurchases)
+                        if (newCategory()) {
+                            updateCategoryList()
+                        }
+                    }}
                 />
             </View>
 

@@ -6,7 +6,7 @@ import currency from 'currency.js';
 export default function PurchaseItem({ removePurchase, item }) {
     return (
       <TouchableOpacity>
-        <Text style={styles.item}>{item.categoryName}  |  {item.categoryAmountSpent}  /  {item.categoryAmountBudgeted} </Text>   
+        <Text style={styles.item}>{item.categoryName}</Text>   
       </TouchableOpacity>
    );
 }

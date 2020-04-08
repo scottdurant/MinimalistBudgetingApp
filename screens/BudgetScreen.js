@@ -8,6 +8,7 @@ export default function AddPurchaseScreen({ navigation }) {
         categoryName: '',
         categoryAmountSpent: '',
         categoryAmountBudgeted: '',
+        categoryKey: '',
     });
 
     const budgetSubmitHandler = (text) => {
@@ -44,9 +45,8 @@ export default function AddPurchaseScreen({ navigation }) {
         });
     }
 
-
     const clearText = () => {
-        setState({ budget: '' });
+        setState({ budget: '', categoryName: ''});
     }
 
     return (
@@ -67,8 +67,7 @@ export default function AddPurchaseScreen({ navigation }) {
                     onPress={() => {
                         budgetSubmitHandler(state.budget)
                         clearText()
-                    }
-                    }
+                    }}
                 />
             </View>
             <View>
@@ -81,9 +80,11 @@ export default function AddPurchaseScreen({ navigation }) {
                 />
                 <Button
                     title="Submit"
-                    onPress={() => 
+                    style={styles.button}
+                    onPress={() => {
                         categorySubmitHandler(state.categoryName)
-                    }
+                        clearText()
+                    }}
                 />
             </View>
         </View>
