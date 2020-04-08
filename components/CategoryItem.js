@@ -3,10 +3,10 @@ import { StyleSheet, Text} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import currency from 'currency.js';
 
-export default function PurchaseItem({ removePurchase, item }) {
+export default function PurchaseItem({ removeSpendingCategory, item }) {
     return (
-      <TouchableOpacity>
-        <Text style={styles.item}>{item.categoryName}</Text>   
+      <TouchableOpacity onPress={() => removeSpendingCategory(item.categoryName)}>
+        <Text style={styles.item}>{item.categoryName}  |    {currency(item.categoryAmountSpent, {formatWithSymbol: true}).format()}  /  {currency(item.categoryAmountBudgeted, {formatWithSymbol: true}).format()}</Text>   
       </TouchableOpacity>
    );
 }

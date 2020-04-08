@@ -8,7 +8,6 @@ export default function AddPurchaseScreen({ navigation }) {
         categoryName: '',
         categoryAmountSpent: '',
         categoryAmountBudgeted: '',
-        categoryKey: '',
     });
 
     const budgetSubmitHandler = (text) => {
@@ -39,14 +38,15 @@ export default function AddPurchaseScreen({ navigation }) {
         });
     }
 
-    const categorySubmitHandler = (text) => {
+    const categorySubmitHandler = (categoryName, categoryAmountBudgeted) => {
         navigation.navigate('ViewAllPurchases', {
-            categoryName: text,
+            categoryName: categoryName,
+            categoryAmountBudgeted: categoryAmountBudgeted,
         });
     }
 
     const clearText = () => {
-        setState({ budget: '', categoryName: ''});
+        setState({ budget: '', categoryName: '', categoryAmountBudgeted: ''});
     }
 
     return (
@@ -71,18 +71,25 @@ export default function AddPurchaseScreen({ navigation }) {
                 />
             </View>
             <View>
-                <Text style={styles.paragraphText}>Create an expense cagetory (i.e. groceries, rent, clothes)</Text>
+                <Text style={styles.paragraphText}>Create a spending cagetory (i.e. groceries, rent, clothes)</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='category name'
                     value={state.categoryName}
                     onChangeText={(text) => setState({ ...state, categoryName: text })}
                 />
+                <TextInput
+                    style={styles.input}
+                    keyboardType={'decimal-pad'}
+                    placeholder='amount budgeted (monthly)'
+                    value={state.categoryAmountBudgeted}
+                    onChangeText={(text) => setState({ ...state, categoryAmountBudgeted: text })}
+                />
                 <Button
                     title="Submit"
                     style={styles.button}
                     onPress={() => {
-                        categorySubmitHandler(state.categoryName)
+                        categorySubmitHandler(state.categoryName, state.categoryAmountBudgeted)
                         clearText()
                     }}
                 />

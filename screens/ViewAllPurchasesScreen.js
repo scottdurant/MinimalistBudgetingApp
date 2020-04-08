@@ -14,6 +14,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     // receive values from BudgetScreen
     const { categoryName } = route.params;
+    const { categoryAmountBudgeted } = route.params;
 
     // let's us use categoryName as the key, so we don't interfere with key from purchases
     const keyExtractor = item => item.categoryName;
@@ -26,7 +27,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     ]);
 
     const [spendingCategories, setSpendingCategories] = useState([
-        //{ categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50', key: '1' }
+        //{ categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50'}
     ])
 
 
@@ -61,7 +62,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return [
                 {
                     categoryName: categoryName,
-                    categoryKey: categoryKey
+                    categoryAmountBudgeted: categoryAmountBudgeted
                 },
                 ...previousCategories
             ];
@@ -70,11 +71,12 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     // returns true if there's a new category, false otherwise. Prevents duplicate categories
     const newCategory = () => {
-        console.log('checking for new category...')
-        var i;
+        var i = 0;
+        if(categoryName === '' || categoryName === undefined) {return false;}
+        
         if (spendingCategories != null && spendingCategories !== undefined) {
             for (i = 0; i < spendingCategories.length; i++) {
-                if (spendingCategories[i].categoryName === categoryName) {
+                if (spendingCategories[i].categoryName === categoryName ) {
                     return false
                 }
             }
@@ -88,7 +90,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         setPurchases(previousPurchases => {
             return previousPurchases.filter(purchase => purchase.key != key);
         });
-        ToastAndroid.show("purchase removed", ToastAndroid.SHORT);
+        ToastAndroid.show('purchase removed', ToastAndroid.SHORT);
 
         // go to home screen and add up the purchases without the removed purchase
         navigation.navigate('Home', { total: addAllPurchasesAfterRemoval(key).toString() });
@@ -101,6 +103,13 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         });
         ToastAndroid.show("all purchases removed", ToastAndroid.SHORT);
         navigation.navigate('Home', { total: 0 });
+    }
+
+    const removeSpendingCategory = (categoryName) => {
+        setSpendingCategories(previousCategories => {
+            return previousCategories.filter(category => category.categoryName != categoryName);
+        });
+        ToastAndroid.show('spending category removed', ToastAndroid.SHORT);
     }
 
     // creates an alert for the remove all purchases button
@@ -161,7 +170,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                         data={spendingCategories}
                         keyExtractor={keyExtractor}
                         renderItem={({ item }) => (
-                            <CategoryItem item={item} />
+                            <CategoryItem item={item} removeSpendingCategory={removeSpendingCategory}/>
                         )}
                     />
                 )}
