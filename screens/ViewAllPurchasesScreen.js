@@ -11,6 +11,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { price } = route.params;
     const { date } = route.params;
     const { key } = route.params;
+    const { category } = route.params;
 
     // receive values from BudgetScreen
     const { categoryName } = route.params;
@@ -20,10 +21,11 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const keyExtractor = item => item.categoryName;
 
 
+    // toggles showing all purchases or showing all spending categories
     const [showAllPurchases, setShowAllPurchases] = useState(true);
 
     const [purchases, setPurchases] = useState([
-        //{ description: 'groceries', price: '32', date: '',  key: '1' },
+        //{ description: 'groceries', price: '32', date: '', category: '',  key: '1' },
     ]);
 
     const [spendingCategories, setSpendingCategories] = useState([
@@ -34,9 +36,20 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     // when navigating to this screen, if key has been changed, there's a new item
     React.useEffect(() => {
         if (route.params?.key) {
-            updatePurchaseList();
-            var newTotalSpent = addAllPurchases().toString();
-            navigation.navigate('Home', { total: newTotalSpent });
+            if (categoryExists()) {
+                updatePurchaseList();
+                var newTotalSpent = addAllPurchases().toString();
+                navigation.navigate('Home', { total: newTotalSpent });
+            } else {
+                Alert.alert(
+                    'Category does not exist',
+                    'Please create a category on the budget tab before using it.',
+                    [
+                        { text: 'Ok', onPress: () => { } },
+                    ],
+                    { cancelable: false }
+                )
+            }
         }
     }, [route.params?.key]);
 
@@ -49,11 +62,29 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     description: description,
                     price: price,
                     date: date,
+                    category: category,
                     key: key,
                 },
                 ...previousPurchases
             ];
         });
+    }
+
+    // does the category given on the purchase item exist already?
+    const categoryExists = () => {
+        var i = 0;
+        // user did not select a category, which is ok
+        if (category === '') { return true }
+
+        if (spendingCategories != null && spendingCategories !== undefined) {
+            for (i = 0; i < spendingCategories.length; i++) {
+                if (spendingCategories[i].categoryName === category) {
+                    return true
+                }
+            }
+
+            return false;
+        }
     }
 
     const updateCategoryList = () => {
@@ -72,11 +103,11 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     // returns true if there's a new category, false otherwise. Prevents duplicate categories
     const newCategory = () => {
         var i = 0;
-        if(categoryName === '' || categoryName === undefined) {return false;}
-        
+        if (categoryName === '' || categoryName === undefined) { return false; }
+
         if (spendingCategories != null && spendingCategories !== undefined) {
             for (i = 0; i < spendingCategories.length; i++) {
-                if (spendingCategories[i].categoryName === categoryName ) {
+                if (spendingCategories[i].categoryName === categoryName) {
                     return false
                 }
             }
@@ -170,7 +201,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                         data={spendingCategories}
                         keyExtractor={keyExtractor}
                         renderItem={({ item }) => (
-                            <CategoryItem item={item} removeSpendingCategory={removeSpendingCategory}/>
+                            <CategoryItem item={item} removeSpendingCategory={removeSpendingCategory} />
                         )}
                     />
                 )}

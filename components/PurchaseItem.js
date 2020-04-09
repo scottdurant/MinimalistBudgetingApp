@@ -7,7 +7,7 @@ import currency from 'currency.js';
 export default function PurchaseItem({ removePurchase, item }) {
     return (
       <TouchableOpacity onPress={() => removePurchase(item.key)}>
-        <Text style={styles.item}>{item.description}  |  {currency(item.price, {formatWithSymbol: true}).format()}  |  {item.date} </Text>   
+        <Text style={styles.item}>{item.description}  |  {currency(item.price, {formatWithSymbol: true}).format()}  |  {item.date}  |  {item.category}</Text>   
       </TouchableOpacity>
    );
 }
