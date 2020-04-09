@@ -71,6 +71,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     }
 
     // does the category given on the purchase item exist already?
+    // this function also adds the price of the just added purchase to the total spent in that category
     const categoryExists = () => {
         var i = 0;
         // user did not select a category, which is ok
@@ -79,6 +80,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         if (spendingCategories != null && spendingCategories !== undefined) {
             for (i = 0; i < spendingCategories.length; i++) {
                 if (spendingCategories[i].categoryName === category) {
+                    spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).add(currency(price));
                     return true
                 }
             }
@@ -118,6 +120,23 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
 
     const removePurchase = (key) => {
+        var categoryToSubtractFrom = '';
+        var amountToSubtract = '';
+        debugger;
+        var i = 0;
+        for (i = 0; i < purchases.length; i++) {
+            if (purchases[i].key === key) {
+                categoryToSubtractFrom = purchases[i].category;
+                amountToSubtract = purchases[i].price;
+            }
+        }
+
+        for (i = 0; i < spendingCategories.length; i++) {
+            if (spendingCategories[i].categoryName === categoryToSubtractFrom) {
+                spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).subtract(currency(amountToSubtract));
+            }
+        }
+
         setPurchases(previousPurchases => {
             return previousPurchases.filter(purchase => purchase.key != key);
         });
