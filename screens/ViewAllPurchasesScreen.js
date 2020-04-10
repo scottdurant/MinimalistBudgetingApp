@@ -22,6 +22,9 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const keyExtractor = item => item.categoryName;
 
 
+    const [toggleButtonText, setToggleButtonText] = useState('View Spending Categories');
+    const [headerText, setHeaderText] = useState('Purchases');
+
     // keep track of the previous category so we know if we need to update the category list
     const [previousCategoryName, setPreviousCategoryName] = useState('');
 
@@ -244,9 +247,28 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         }
     }
 
+    const onPressToggle = () => {
+        setShowAllPurchases(!showAllPurchases);
+        debugger;
+        if (toggleButtonText === "View Spending Categories") {
+            setToggleButtonText('View Purchases');
+            setHeaderText('Categories');
+        } else {
+            setToggleButtonText('View Spending Categories');
+            setHeaderText('Purchases');
+        }
+
+        if (newCategory()) {
+            updateCategoryList();
+        }
+    }
+
 
     return (
         <View style={styles.container}>
+            <View style={styles.headerText}>
+                <Text>{headerText}</Text>
+            </View>
             <View style={styles.list}>
                 {showAllPurchases && (
                     <FlatList
@@ -270,21 +292,15 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             </View>
             <View style={styles.button}>
                 <Button
-                    title="remove all purchases"
-                    color="#ff1a1a"
+                    title='remove all purchases'
+                    color='#ff1a1a'
                     onPress={() => removeAllPurchasesAlert()}
                 />
                 <Button
-                    title="Toggle All Purchases and Spending Categories"
-                    onPress={() => {
-                        setShowAllPurchases(!showAllPurchases);
-                        if (newCategory()) {
-                            updateCategoryList();
-                        }
-                    }}
+                    title={toggleButtonText}
+                    onPress={onPressToggle}
                 />
             </View>
-
         </View>
     );
 }
@@ -298,14 +314,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     list: {
-        flex: 5,
+        flex: 8,
         paddingTop: 12,
         paddingBottom: 12,
         paddingLeft: 22,
         paddingRight: 22
     },
-    button: {
+    headerText: {
         flex: 1,
+        alignItems: 'center',
+        textAlign: 'center',
+        paddingTop: 16,
+        fontFamily: 'quicksand',
+        fontSize: 28,
+    },
+    button: {
+        flex: 2,
         paddingLeft: 18,
         paddingRight: 18,
         justifyContent: 'center',
