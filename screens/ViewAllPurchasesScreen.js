@@ -109,6 +109,13 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return previousPurchases.filter(purchase => false);
         });
         ToastAndroid.show("all purchases removed", ToastAndroid.SHORT);
+
+        // remove amount spent from all categories
+        var i = 0;
+        for (i = 0; i < spendingCategories.length; i++) {
+            spendingCategories[i].categoryAmountSpent = currency('0');
+        }
+
         navigation.navigate('Home', { total: 0 });
     }
 
@@ -140,7 +147,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     }
 
     // creates an alert for the remove all purchases button
-    const callAlert = () => {
+    const removeAllPurchasesAlert = () => {
         Alert.alert(
             'Are you sure you want to remove all purchases?',
             'This cannot be undone.',
@@ -209,6 +216,19 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         return false;
     }
 
+    // creates an alert for the remove all purchases button
+    const removeSpendingCategoryAlert = (categoryName) => {
+        Alert.alert(
+            'Are you sure you want to remove this spending category?',
+            'This cannot be undone.',
+            [
+                { text: 'no', onPress: () => { } },
+                { text: 'yes', onPress: () => removeSpendingCategory(categoryName) },
+            ],
+            { cancelable: false }
+        )
+    }
+
     const removeSpendingCategory = (categoryName) => {
         setSpendingCategories(previousCategories => {
             return previousCategories.filter(category => category.categoryName != categoryName);
@@ -243,7 +263,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                         data={spendingCategories}
                         keyExtractor={keyExtractor}
                         renderItem={({ item }) => (
-                            <CategoryItem item={item} removeSpendingCategory={removeSpendingCategory} />
+                            <CategoryItem item={item} removeSpendingCategory={removeSpendingCategoryAlert} />
                         )}
                     />
                 )}
@@ -252,7 +272,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 <Button
                     title="remove all purchases"
                     color="#ff1a1a"
-                    onPress={() => callAlert()}
+                    onPress={() => removeAllPurchasesAlert()}
                 />
                 <Button
                     title="Toggle All Purchases and Spending Categories"
