@@ -17,9 +17,13 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { categoryName } = route.params;
     const { categoryAmountBudgeted } = route.params;
 
+
     // let's us use categoryName as the key, so we don't interfere with key from purchases
     const keyExtractor = item => item.categoryName;
-
+    
+    
+    // keep track of the previous category so we know if we need to update the category list
+    const [previousCategoryName, setPreviousCategoryName] = useState('');
 
     // toggles showing all purchases or showing all spending categories
     const [showAllPurchases, setShowAllPurchases] = useState(true);
@@ -70,8 +74,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         });
     }
 
-    // does the category given on the purchase item exist already?
-    // this function also adds the price of the just added purchase to the total spent in that category
+    // Does the category given on the purchase item exist already?
+    // Also adds the price of the just added purchase to the total spent in that ourchase's category
     const categoryExists = () => {
         var i = 0;
         // user did not select a category, which is ok
@@ -84,12 +88,12 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     return true
                 }
             }
-
             return false;
         }
     }
 
     const updateCategoryList = () => {
+        setPreviousCategoryName(categoryName);
         setSpendingCategories(previousCategories => {
             Keyboard.dismiss();
             return [
@@ -105,7 +109,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     // returns true if there's a new category, false otherwise. Prevents duplicate categories
     const newCategory = () => {
         var i = 0;
-        if (categoryName === '' || categoryName === undefined) { return false; }
+        if (categoryName === '' || categoryName === undefined) {return false;}
+        if (previousCategoryName === categoryName) {return false;}
 
         if (spendingCategories != null && spendingCategories !== undefined) {
             for (i = 0; i < spendingCategories.length; i++) {
@@ -131,6 +136,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             }
         }
 
+        // remove the purchase amount from that purchase's category
         for (i = 0; i < spendingCategories.length; i++) {
             if (spendingCategories[i].categoryName === categoryToSubtractFrom) {
                 spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).subtract(currency(amountToSubtract));
@@ -160,6 +166,14 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return previousCategories.filter(category => category.categoryName != categoryName);
         });
         ToastAndroid.show('spending category removed', ToastAndroid.SHORT);
+
+        // remove given spending category from any purchase made
+        var i = 0;
+        for (i = 0; i < purchases.length; i++) {
+            if (purchases[i].category == categoryName) {
+                purchases[i].category = '';
+            }
+        }
     }
 
     // creates an alert for the remove all purchases button
@@ -234,9 +248,9 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 <Button
                     title="Toggle All Purchases and Spending Categories"
                     onPress={() => {
-                        setShowAllPurchases(!showAllPurchases)
+                        setShowAllPurchases(!showAllPurchases);
                         if (newCategory()) {
-                            updateCategoryList()
+                            updateCategoryList();
                         }
                     }}
                 />
