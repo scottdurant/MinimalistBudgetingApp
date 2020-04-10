@@ -10,6 +10,7 @@ export default function AddPurchase({ submitHandler }) {
         price: '',
         date: new Date(),
         key: '',
+        category: '',
     });
 
     const [mode, setMode] = useState('date');
@@ -37,6 +38,7 @@ export default function AddPurchase({ submitHandler }) {
             description: '',
             price: '',
             date: new Date(),
+            category: '',
         })
     }
 
@@ -46,13 +48,13 @@ export default function AddPurchase({ submitHandler }) {
             return;
         }
 
-        if ( !text.match(/^[0-9.]*$/) ) {
+        if (!text.match(/^[0-9.]*$/)) {
             alert('Price can only contain digits and decimals!');
             return;
         }
 
         if (text.length > 9) {
-            alert('You don\'t really have that much money, do you? :)' );
+            alert('You don\'t really have that much money, do you? :)');
             return
         }
 
@@ -75,6 +77,12 @@ export default function AddPurchase({ submitHandler }) {
                 value={state.price}
                 onChangeText={(text) => vaildateAndSetPurchasePrice(text)}
             />
+            <TextInput
+                style={styles.input}
+                placeholder='enter category'
+                value={state.category}
+                onChangeText={(text) => setState({ ...state, category: text })}
+            />
             {show && (
                 <DateTimePicker
                     value={state.date}
@@ -88,7 +96,7 @@ export default function AddPurchase({ submitHandler }) {
             <View style={styles.separator} ></View>
             <Button title='add purchase' style={styles.button} onPress={() => {
                 //debugger;
-                submitHandler(state.description, state.price, state.date.toDateString(), state.key)
+                submitHandler(state.description, state.price, state.date.toDateString(), state.category, state.key)
                 clearInput();
             }}
             />
