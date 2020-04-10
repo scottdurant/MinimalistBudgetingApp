@@ -20,8 +20,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     // let's us use categoryName as the key, so we don't interfere with key from purchases
     const keyExtractor = item => item.categoryName;
-    
-    
+
+
     // keep track of the previous category so we know if we need to update the category list
     const [previousCategoryName, setPreviousCategoryName] = useState('');
 
@@ -57,6 +57,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         }
     }, [route.params?.key]);
 
+    ///// Functions related to purchases /////
+
     // puts new purchase in the list of purchases
     const updatePurchaseList = () => {
         setPurchases(previousPurchases => {
@@ -73,6 +75,90 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             ];
         });
     }
+
+    const removePurchase = (key) => {
+        var categoryToSubtractFrom = '';
+        var amountToSubtract = '';
+        debugger;
+        var i = 0;
+        for (i = 0; i < purchases.length; i++) {
+            if (purchases[i].key === key) {
+                categoryToSubtractFrom = purchases[i].category;
+                amountToSubtract = purchases[i].price;
+            }
+        }
+
+        // remove the purchase amount from that purchase's category
+        for (i = 0; i < spendingCategories.length; i++) {
+            if (spendingCategories[i].categoryName === categoryToSubtractFrom) {
+                spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).subtract(currency(amountToSubtract));
+            }
+        }
+
+        setPurchases(previousPurchases => {
+            return previousPurchases.filter(purchase => purchase.key != key);
+        });
+        ToastAndroid.show('purchase removed', ToastAndroid.SHORT);
+
+        // go to home screen and add up the purchases without the removed purchase
+        navigation.navigate('Home', { total: addAllPurchasesAfterRemoval(key).toString() });
+    };
+
+    const removeAllPurchases = () => {
+        setPurchases(previousPurchases => {
+            return previousPurchases.filter(purchase => false);
+        });
+        ToastAndroid.show("all purchases removed", ToastAndroid.SHORT);
+        navigation.navigate('Home', { total: 0 });
+    }
+
+    const addAllPurchasesAfterRemoval = (keyToSkip) => {
+        var i = 0;
+        var total = 0;
+
+        for (i = 0; i < purchases.length; i++) {
+            if (purchases[i].key != keyToSkip) {
+                total = currency(total).add(purchases[i].price);
+            }
+        }
+        return currency(total);
+    }
+
+    // adds up all purchases. Its a little hacky but it works
+    function addAllPurchases() {
+        var i;
+        var total = 0;
+        if (purchases.length == 0) {
+            return price;
+        }
+
+        for (i = 0; i < purchases.length; i++) {
+            total = currency(total).add(purchases[i].price);
+        }
+
+        return currency(total).add(currency(price));
+    }
+
+    // creates an alert for the remove all purchases button
+    const callAlert = () => {
+        Alert.alert(
+            'Are you sure you want to remove all purchases?',
+            'This cannot be undone.',
+            [
+                { text: 'no', onPress: () => { } },
+                { text: 'yes', onPress: () => removeAllPurchases() },
+            ],
+            { cancelable: false }
+        )
+    }
+
+
+
+
+    ///// Functions related to categories /////
+
+
+
 
     // Does the category given on the purchase item exist already?
     // Also adds the price of the just added purchase to the total spent in that ourchase's category
@@ -109,8 +195,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     // returns true if there's a new category, false otherwise. Prevents duplicate categories
     const newCategory = () => {
         var i = 0;
-        if (categoryName === '' || categoryName === undefined) {return false;}
-        if (previousCategoryName === categoryName) {return false;}
+        if (categoryName === '' || categoryName === undefined) { return false; }
+        if (previousCategoryName === categoryName) { return false; }
 
         if (spendingCategories != null && spendingCategories !== undefined) {
             for (i = 0; i < spendingCategories.length; i++) {
@@ -121,44 +207,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return true;
         }
         return false;
-    }
-
-
-    const removePurchase = (key) => {
-        var categoryToSubtractFrom = '';
-        var amountToSubtract = '';
-        debugger;
-        var i = 0;
-        for (i = 0; i < purchases.length; i++) {
-            if (purchases[i].key === key) {
-                categoryToSubtractFrom = purchases[i].category;
-                amountToSubtract = purchases[i].price;
-            }
-        }
-
-        // remove the purchase amount from that purchase's category
-        for (i = 0; i < spendingCategories.length; i++) {
-            if (spendingCategories[i].categoryName === categoryToSubtractFrom) {
-                spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).subtract(currency(amountToSubtract));
-            }
-        }
-
-        setPurchases(previousPurchases => {
-            return previousPurchases.filter(purchase => purchase.key != key);
-        });
-        ToastAndroid.show('purchase removed', ToastAndroid.SHORT);
-
-        // go to home screen and add up the purchases without the removed purchase
-        navigation.navigate('Home', { total: addAllPurchasesAfterRemoval(key).toString() });
-    };
-
-
-    const removeAllPurchases = () => {
-        setPurchases(previousPurchases => {
-            return previousPurchases.filter(purchase => false);
-        });
-        ToastAndroid.show("all purchases removed", ToastAndroid.SHORT);
-        navigation.navigate('Home', { total: 0 });
     }
 
     const removeSpendingCategory = (categoryName) => {
@@ -176,45 +224,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         }
     }
 
-    // creates an alert for the remove all purchases button
-    const callAlert = () => {
-        Alert.alert(
-            'Are you sure you want to remove all purchases?',
-            'This cannot be undone.',
-            [
-                { text: 'no', onPress: () => { } },
-                { text: 'yes', onPress: () => removeAllPurchases() },
-            ],
-            { cancelable: false }
-        )
-    }
-
-    const addAllPurchasesAfterRemoval = (keyToSkip) => {
-        var i = 0;
-        var total = 0;
-
-        for (i = 0; i < purchases.length; i++) {
-            if (purchases[i].key != keyToSkip) {
-                total = currency(total).add(purchases[i].price);
-            }
-        }
-        return currency(total);
-    }
-
-    // adds up all purchases. Its a little hacky but it works
-    function addAllPurchases() {
-        var i;
-        var total = 0;
-        if (purchases.length == 0) {
-            return price;
-        }
-
-        for (i = 0; i < purchases.length; i++) {
-            total = currency(total).add(purchases[i].price);
-        }
-
-        return currency(total).add(currency(price));
-    }
 
     return (
         <View style={styles.container}>
