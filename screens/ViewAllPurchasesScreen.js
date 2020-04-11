@@ -273,7 +273,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 {showAllPurchases && (
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={purchases}
+                        data={purchases.sort(function(a,b){return new Date(b.date) - new Date(a.date)})}
                         renderItem={({ item }) => (
                             <PurchaseItem item={item} removePurchase={removePurchase} />
                         )}
