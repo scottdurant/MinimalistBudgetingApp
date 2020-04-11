@@ -52,7 +52,7 @@ You can also follow the more detailed [React Native CLI Quickstart](https://reac
 
 
 
-## Tools Uesed & Acknowledgements
+## Tools Used & Acknowledgements
 
 * [React Native](https://reactnative.dev/)
 * [Expo Client](https://expo.io/tools)
