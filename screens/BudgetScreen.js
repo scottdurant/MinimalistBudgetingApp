@@ -11,42 +11,64 @@ export default function AddPurchaseScreen({ navigation }) {
     });
 
     const budgetSubmitHandler = (text) => {
-        if (/\s/.test(text)) {
-            alert('Price cannot contain whitespace!');
-            return;
+        if (priceInputValid(text)) {
+            navigation.navigate('Home', {
+                budget: text,
+            });
         }
-
-        if (!text.match(/^[0-9.]*$/)) {
-            alert('Price can only contain digits and decimals!');
-            return;
-        }
-
-        if (text.length > 9) {
-            alert('You don\'t really have that much money, do you? :)');
-            return
-        }
-        if (text.length == 0) {
-            alert('Please enter a price.');
-            return;
-        }
-        if ((text.split(".").length) > 2) {
-            alert('Price contains too many decimals.');
-            return;
-        }
-        navigation.navigate('Home', {
-            budget: text,
-        });
     }
 
     const categorySubmitHandler = (categoryName, categoryAmountBudgeted) => {
-        navigation.navigate('ViewAllPurchases', {
-            categoryName: categoryName,
-            categoryAmountBudgeted: categoryAmountBudgeted,
-        });
+        if (descriptionInputValid(categoryName) && priceInputValid(categoryAmountBudgeted)) {
+            navigation.navigate('ViewAllPurchases', {
+                categoryName: categoryName,
+                categoryAmountBudgeted: categoryAmountBudgeted,
+            });
+        }
+    }
+
+    const priceInputValid = (input) => {
+        if (/\s/.test(input)) {
+            alert('Currency values cannot contain whitespace.');
+            return false;
+        }
+
+        if (!input.match(/^[0-9.]*$/)) {
+            alert('Currency values can only contain digits and decimals.');
+            return false;
+        }
+
+        if (input.length > 9) {
+            alert('You don\'t really have that much money, do you? :)');
+            return false;
+        }
+        if (input.length == 0) {
+            alert('Please enter a budget amount.');
+            return false;
+        }
+        if ((input.split(".").length) > 2) {
+            alert('Currency value contains too many decimals.');
+            return false;
+        }
+
+        return true;
+    }
+
+    const descriptionInputValid = (text) => {
+        if (text.length == 0) {
+            alert('Please enter a category name.');
+            return false;
+        }
+        if (text[0] == ' ') {
+            alert('Category name cannot contain only whitespace.');
+            return false;
+        }
+
+        return true;
     }
 
     const clearText = () => {
-        setState({ budget: '', categoryName: '', categoryAmountBudgeted: ''});
+        setState({ budget: '', categoryName: '', categoryAmountBudgeted: '' });
     }
 
     return (
