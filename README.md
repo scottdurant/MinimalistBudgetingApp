@@ -7,9 +7,9 @@ easy to use, which will encourage users to enter their purchases regularly and s
 The main directories to look at are the `components` and `screens` directories. `components` includes things such as the `AddPurchase` component, which displays a text input and a button for users to enter a purchase. `screens` contains all of the screens for the app, such as the `HomeScreen`, and `AddPurchaseScreen`. 
 
 ## Getting Started
-If you just want to run the app on your Android device, visit the [Expo Page](https://expo.io/@scottd/MinimalistBudgetingApp) and scan the QR code with the [Expo Client App](https://expo.io/tools) on your Android device.
+The easiest way to run this app is to visit the [Expo Page](https://expo.io/@scottd/MinimalistBudgetingApp) and scan the QR code with the [Expo Client App](https://expo.io/tools) on your Android device.
 
-If you want to play with the code, follow these steps (adapted from the [React Native Getting Started Page](https://reactnative.dev/docs/getting-started)) to run this app on your local machine for development/testing purposes. Check the React Native instructions if you run into problems. 
+If you want to play with the code, follow these steps (adapted from the [React Native Getting Started Page](https://reactnative.dev/docs/getting-started)) to run this app on your local machine for development/testing purposes. Check the React Native instructions if you run into problems.
 
 
 ### Prerequisites
@@ -52,13 +52,14 @@ You can also follow the more detailed [React Native CLI Quickstart](https://reac
 
 
 
-## Tools Used
+## Tools Uesed & Acknowledgements
 
 * [React Native](https://reactnative.dev/)
 * [Expo Client](https://expo.io/tools)
 * [React Navigation](https://reactnavigation.org/)
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Currency.js](https://currency.js.org/)
+* Spash screen photo by [Alexander Schimmeck on Unslapsh](https://unsplash.com/@alschim)
 
 ## Author
 
