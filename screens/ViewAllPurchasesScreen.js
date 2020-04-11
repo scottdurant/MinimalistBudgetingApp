@@ -282,7 +282,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 {!showAllPurchases && (
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={spendingCategories}
+                        data={spendingCategories.sort((a, b,) => a.categoryName.localeCompare(b.categoryName))}
                         keyExtractor={keyExtractor}
                         renderItem={({ item }) => (
                             <CategoryItem item={item} removeSpendingCategory={removeSpendingCategoryAlert} />
