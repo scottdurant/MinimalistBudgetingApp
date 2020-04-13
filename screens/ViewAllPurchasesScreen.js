@@ -7,7 +7,7 @@ import currency from 'currency.js';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
     // receive values from AddPurchaseScreen
-    const { description } = route.params;   // needs a default value
+    const { description } = route.params;   
     const { price } = route.params;
     const { date } = route.params;
     const { key } = route.params;
@@ -18,9 +18,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const { categoryAmountBudgeted } = route.params;
 
 
-    // let's us use categoryName as the key, so we don't interfere with key from purchases
+    // lets us use categoryName as the key, so we don't interfere with key from purchases
     const keyExtractor = item => item.categoryName;
-
 
     const [toggleButtonText, setToggleButtonText] = useState('View Spending Categories');
     const [headerText, setHeaderText] = useState('Purchases');
@@ -134,7 +133,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         return currency(total);
     }
 
-    // adds up all purchases. Its a little hacky but it works
     function addAllPurchases() {
         var i;
         var total = 0;
@@ -171,7 +169,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
 
     // Does the category given on the purchase item exist already?
-    // Also adds the price of the just added purchase to the total spent in that ourchase's category
+    // Also adds the price of the just added purchase to the total spent in that purchase's category
     const categoryExists = () => {
         var i = 0;
         // user did not select a category, which is ok
@@ -273,7 +271,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 {showAllPurchases && (
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={purchases}
+                        data={purchases.sort(function(a,b){return new Date(b.date) - new Date(a.date)})}
                         renderItem={({ item }) => (
                             <PurchaseItem item={item} removePurchase={removePurchase} />
                         )}
@@ -282,7 +280,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 {!showAllPurchases && (
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={spendingCategories}
+                        data={spendingCategories.sort((a, b,) => a.categoryName.localeCompare(b.categoryName))}
                         keyExtractor={keyExtractor}
                         renderItem={({ item }) => (
                             <CategoryItem item={item} removeSpendingCategory={removeSpendingCategoryAlert} />
