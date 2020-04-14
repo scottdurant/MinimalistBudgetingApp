@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
-import { Platform, StyleSheet, Text, View, Button, } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, } from 'react-native';
 import currency from 'currency.js';
+import Colors from '../constants/Colors';
+import { ProgressBarAndroid } from '@react-native-community/progress-bar-android';
 
-export default function HomeScreen({ route }) {
+export default function HomeScreen({ navigation, route }) {
   const { budget } = route.params; // might need default value?
   const { total } = route.params;
-  
+
+  const [totalSpentPercentage, setTotalSpentPercentage] = useState(0);
+
+  React.useEffect(() => {
+    if (route.params?.total) {
+      debugger;
+      setTotalSpentPercentage(Number(total) / Number(budget));
+      console.log(totalSpentPercentage);
+    }
+  }, [route.params?.total]);
+
   return (
     <View style={styles.container}>
       <View style={styles.getStartedContainer}>
@@ -16,6 +27,14 @@ export default function HomeScreen({ route }) {
         <Text style={styles.currencyTextBudgeted}>
           {currency(budget, { formatWithSymbol: true }).format()}
         </Text>
+      </View>
+      <View>
+        <ProgressBarAndroid
+          styleAttr="Horizontal"
+          color={Colors.tintColor}
+          indeterminate={false}
+          progress={Number(totalSpentPercentage.toFixed(2))}
+        />
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.getStartedText}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
