@@ -264,8 +264,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerText}>
-                <Text>{headerText}</Text>
+            <View style={styles.header}>
+                <Text style={styles.headerText}>{headerText}</Text>
             </View>
             <View style={styles.list}>
                 {showAllPurchases && (
@@ -288,12 +288,13 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                     />
                 )}
             </View>
-            <View style={styles.button}>
+            <View style={styles.buttonContainer}>
                 <Button
                     title='remove all purchases'
                     color='#ff1a1a'
                     onPress={() => removeAllPurchasesAlert()}
                 />
+                <View style={styles.separator}></View>
                 <Button
                     title={toggleButtonText}
                     onPress={onPressToggle}
@@ -309,27 +310,35 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 0,
         backgroundColor: '#fff',
     },
     list: {
         flex: 8,
-        paddingTop: 12,
         paddingBottom: 12,
         paddingLeft: 22,
         paddingRight: 22
     },
-    headerText: {
+    header: {
         flex: 1,
         alignItems: 'center',
         textAlign: 'center',
-        paddingTop: 16,
-        fontFamily: 'quicksand',
-        fontSize: 28,
+        paddingTop: 20,
     },
-    button: {
+    headerText: {
+        fontFamily: 'quicksand',
+        fontSize: 24,
+        lineHeight: 24,
+        textAlign: 'center',
+    },
+    buttonContainer: {
         flex: 2,
         paddingLeft: 18,
         paddingRight: 18,
+        paddingBottom: 4,
         justifyContent: 'center',
+    },
+    separator: {
+        marginVertical: 4,
     }
 });

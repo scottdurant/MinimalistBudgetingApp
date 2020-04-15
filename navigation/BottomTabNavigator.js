@@ -40,7 +40,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={ViewAllPurchasesScreen}
         initialParams={{ description: '', key: ''}}
         options={{
-          title: 'All Purchases',
+          title: 'View Purchases',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-pricetag" />,
         }}
       />
@@ -65,7 +65,7 @@ function getHeaderTitle(route) {
     case 'AddPurchase':
       return 'Add Purchase';
     case 'ViewAllPurchases':
-      return 'All Purchases';
+      return 'Purchase Information';
     case 'Budget':
       return 'Budget';
   }
