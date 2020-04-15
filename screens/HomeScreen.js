@@ -12,9 +12,7 @@ export default function HomeScreen({ navigation, route }) {
 
   React.useEffect(() => {
     if (route.params?.total) {
-      debugger;
       setTotalSpentPercentage(Number(total) / Number(budget));
-      console.log(totalSpentPercentage);
     }
   }, [route.params?.total]);
 
