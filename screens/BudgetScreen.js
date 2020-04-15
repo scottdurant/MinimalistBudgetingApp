@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Keyboard } from 'react-native';
-import { TextInput, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Button, Keyboard, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { TextInput, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation }) {
     const [state, setState] = useState({
@@ -72,8 +72,8 @@ export default function AddPurchaseScreen({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset="-200">
+            <ScrollView keyboardShouldPersistTaps="always">
                 <View style={styles.content}>
                     <Text style={styles.text}>Enter the total amount of money you expect to spend this month.</Text>
                     <View>
@@ -119,8 +119,8 @@ export default function AddPurchaseScreen({ navigation }) {
                         />
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
