@@ -7,18 +7,29 @@ import { ProgressBarAndroid } from '@react-native-community/progress-bar-android
 export default function HomeScreen({ navigation, route }) {
   const { budget } = route.params; // might need default value?
   const { total } = route.params;
+  const { budgetSet } = route.params;
 
   const [totalSpentPercentage, setTotalSpentPercentage] = useState(0);
 
   React.useEffect(() => {
     if (route.params?.total) {
-      setTotalSpentPercentage(Number(total) / Number(budget));
+      if (budget != 0) {
+        setTotalSpentPercentage(Number(total) / Number(budget));
+      }
     }
   }, [route.params?.total]);
 
+  const getProgressAmount = () => {
+    if (budgetSet) {
+      return Number(totalSpentPercentage.toFixed(2));
+    }
+
+    return 0.00;
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.getStartedContainer}>
+      <View style={styles.content}>
         <Text style={styles.currencyTextSpent}>
           {currency(total, { formatWithSymbol: true }).format()}
         </Text>
@@ -31,11 +42,11 @@ export default function HomeScreen({ navigation, route }) {
           styleAttr="Horizontal"
           color={Colors.tintColor}
           indeterminate={false}
-          progress={Number(totalSpentPercentage.toFixed(2))}
+          progress={getProgressAmount()}
         />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.getStartedText}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
+        <Text style={styles.text}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
       </View>
     </View>
   );
@@ -51,15 +62,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    //justifyContent: 'center',
-    //alignItems: 'center'
   },
   contentContainer: {
-    paddingTop: 20,
+    padding: 20,
   },
-  getStartedContainer: {
+  content: {
     alignItems: 'center',
-    marginHorizontal: 50,
   },
   currencyTextSpent: {
     fontFamily: 'quicksand',
@@ -75,10 +83,9 @@ const styles = StyleSheet.create({
     fontSize: 48,
     textAlign: 'center',
   },
-  getStartedText: {
+  text: {
     fontFamily: 'quicksand',
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
     marginTop: 20
