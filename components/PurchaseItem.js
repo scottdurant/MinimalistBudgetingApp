@@ -16,11 +16,6 @@ export default function PurchaseItem({ removePurchase, item }) {
         topDivider
         bottomDivider
       />
-
-
-      // <TouchableOpacity onPress={() => removePurchase(item.key)}>
-      //   <Text style={styles.item}>{item.description}  |  {currency(item.price, {formatWithSymbol: true}).format()}  |  {item.date}  |  {item.category}</Text>   
-      // </TouchableOpacity>
    );
 }
 
