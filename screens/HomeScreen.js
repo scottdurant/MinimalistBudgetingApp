@@ -29,7 +29,7 @@ export default function HomeScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.getStartedContainer}>
+      <View style={styles.content}>
         <Text style={styles.currencyTextSpent}>
           {currency(total, { formatWithSymbol: true }).format()}
         </Text>
@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation, route }) {
         />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.getStartedText}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
+        <Text style={styles.text}>You have {currency(currency(budget).subtract(total), { formatWithSymbol: true }).format()} remaining this month. </Text>
       </View>
     </View>
   );
@@ -62,15 +62,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    //justifyContent: 'center',
-    //alignItems: 'center'
   },
   contentContainer: {
-    paddingTop: 20,
+    padding: 20,
   },
-  getStartedContainer: {
+  content: {
     alignItems: 'center',
-    marginHorizontal: 50,
   },
   currencyTextSpent: {
     fontFamily: 'quicksand',
@@ -86,10 +83,9 @@ const styles = StyleSheet.create({
     fontSize: 48,
     textAlign: 'center',
   },
-  getStartedText: {
+  text: {
     fontFamily: 'quicksand',
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
     marginTop: 20
