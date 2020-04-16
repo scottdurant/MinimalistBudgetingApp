@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Keyboard, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, Keyboard, KeyboardAvoidingView, SafeAreaView, ToastAndroid } from 'react-native';
 import { TextInput, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation }) {
@@ -28,6 +28,7 @@ export default function AddPurchaseScreen({ navigation }) {
                 categoryName: categoryName,
                 categoryAmountBudgeted: categoryAmountBudgeted,
             });
+            //ToastAndroid.show('tap \"View Purchases\" to refresh categories', ToastAndroid.SHORT)
         }
     }
 
