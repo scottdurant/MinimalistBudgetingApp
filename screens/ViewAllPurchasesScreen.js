@@ -31,7 +31,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const [showAllPurchases, setShowAllPurchases] = useState(true);
 
     const [purchases, setPurchases] = useState([
-        //{ description: 'groceries', price: '32', date: '', category: '',  key: '1' },
+        { description: 'Kroger', price: '32', date: new Date(), category: 'food',  key: '1' },
     ]);
 
     const [spendingCategories, setSpendingCategories] = useState([

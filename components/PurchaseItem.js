@@ -3,12 +3,24 @@ import * as React from 'react';
 import { StyleSheet, Text} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import currency from 'currency.js';
+import { ListItem } from 'react-native-elements';
 
 export default function PurchaseItem({ removePurchase, item }) {
     return (
-      <TouchableOpacity onPress={() => removePurchase(item.key)}>
-        <Text style={styles.item}>{item.description}  |  {currency(item.price, {formatWithSymbol: true}).format()}  |  {item.date}  |  {item.category}</Text>   
-      </TouchableOpacity>
+      <ListItem
+        title={item.description}
+        rightTitle={currency(item.price, {formatWithSymbol: true}).format()}
+        subtitle={item.category}
+        rightSubtitle={item.date} // put the date here!
+        onPress={() => removePurchase(item.key)}
+        topDivider
+        bottomDivider
+      />
+
+
+      // <TouchableOpacity onPress={() => removePurchase(item.key)}>
+      //   <Text style={styles.item}>{item.description}  |  {currency(item.price, {formatWithSymbol: true}).format()}  |  {item.date}  |  {item.category}</Text>   
+      // </TouchableOpacity>
    );
 }
 
