@@ -82,7 +82,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const removePurchase = (key) => {
         var categoryToSubtractFrom = '';
         var amountToSubtract = '';
-        debugger;
         var i = 0;
         for (i = 0; i < purchases.length; i++) {
             if (purchases[i].key === key) {
@@ -248,7 +247,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     const onPressToggle = () => {
         setShowAllPurchases(!showAllPurchases);
-        debugger;
         if (toggleButtonText === "View Spending Categories") {
             setToggleButtonText('View Purchases');
             setHeaderText('Categories');

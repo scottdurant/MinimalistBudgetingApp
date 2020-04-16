@@ -95,7 +95,6 @@ export default function AddPurchase({ submitHandler }) {
             <Button title='select date' style={styles.button} onPress={showDatePicker} />
             <View style={styles.separator} ></View>
             <Button title='add purchase' style={styles.button} onPress={() => {
-                //debugger;
                 submitHandler(state.description, state.price, state.date.toDateString(), state.category, state.key)
                 clearInput();
             }}

@@ -10,7 +10,7 @@ export default function PurchaseItem({ removePurchase, item }) {
         title={item.description}
         rightTitle={currency(item.price, {formatWithSymbol: true}).format()}
         subtitle={item.category}
-        rightSubtitle={item.date} // put the date here!
+        rightSubtitle={item.date} 
         onPress={() => removePurchase(item.key)}
         topDivider
         bottomDivider
@@ -19,13 +19,5 @@ export default function PurchaseItem({ removePurchase, item }) {
 }
 
 const styles = StyleSheet.create({
-  item: {
-    padding: 16,
-    marginTop: 16,
-    borderColor: '#bbb',
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 10,
-    fontFamily: 'quicksand'
-  },
+  
 });
