@@ -5,6 +5,7 @@ import { TextInput, ScrollView, TouchableWithoutFeedback } from 'react-native-ge
 export default function AddPurchaseScreen({ navigation }) {
     const [state, setState] = useState({
         budget: '',
+        budgetSet: false,
         categoryName: '',
         categoryAmountSpent: '',
         categoryAmountBudgeted: '',
@@ -12,9 +13,12 @@ export default function AddPurchaseScreen({ navigation }) {
 
     const budgetSubmitHandler = (text) => {
         if (priceInputValid(text)) {
-            navigation.navigate('Home', {
-                budget: text,
-            });
+            if (text !== 0) {
+                navigation.navigate('Home', {
+                    budget: text,
+                    budgetSet: true,
+                });
+            }
         }
     }
 

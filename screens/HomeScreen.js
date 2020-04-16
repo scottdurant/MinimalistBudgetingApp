@@ -7,14 +7,25 @@ import { ProgressBarAndroid } from '@react-native-community/progress-bar-android
 export default function HomeScreen({ navigation, route }) {
   const { budget } = route.params; // might need default value?
   const { total } = route.params;
+  const { budgetSet } = route.params;
 
   const [totalSpentPercentage, setTotalSpentPercentage] = useState(0);
 
   React.useEffect(() => {
     if (route.params?.total) {
-      setTotalSpentPercentage(Number(total) / Number(budget));
+      if (budget != 0) {
+        setTotalSpentPercentage(Number(total) / Number(budget));
+      }
     }
   }, [route.params?.total]);
+
+  const getProgressAmount = () => {
+    if (budgetSet) {
+      return Number(totalSpentPercentage.toFixed(2));
+    }
+
+    return 0.00;
+  }
 
   return (
     <View style={styles.container}>
@@ -31,7 +42,7 @@ export default function HomeScreen({ navigation, route }) {
           styleAttr="Horizontal"
           color={Colors.tintColor}
           indeterminate={false}
-          progress={Number(totalSpentPercentage.toFixed(2))}
+          progress={getProgressAmount()}
         />
       </View>
       <View style={styles.contentContainer}>
