@@ -59,6 +59,12 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             }
         }
     }, [route.params?.key]);
+    
+    React.useEffect(() => {
+        if (route.params?.categoryName) {
+            updateCategoryList();
+        }
+    }, [route.params?.categoryName])
 
     ///// Functions related to purchases /////
 

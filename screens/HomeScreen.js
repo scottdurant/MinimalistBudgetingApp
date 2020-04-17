@@ -5,7 +5,7 @@ import Colors from '../constants/Colors';
 import { ProgressBarAndroid } from '@react-native-community/progress-bar-android';
 
 export default function HomeScreen({ navigation, route }) {
-  const { budget } = route.params; // might need default value?
+  const { budget } = route.params; 
   const { total } = route.params;
   const { budgetSet } = route.params;
 
@@ -13,17 +13,27 @@ export default function HomeScreen({ navigation, route }) {
 
   React.useEffect(() => {
     if (route.params?.total) {
-      if (budget != 0) {
-        setTotalSpentPercentage(Number(total) / Number(budget));
-      }
+      updateTotalSpentPercentage();
     }
   }, [route.params?.total]);
+
+  React.useEffect(() => {
+    if (route.params?.budget) {
+      updateTotalSpentPercentage();
+    }
+  }, [route.params?.budget]);
+
+
+  const updateTotalSpentPercentage = () => {
+    if (budget != 0) {
+      setTotalSpentPercentage(Number(total) / Number(budget));
+    }
+  }
 
   const getProgressAmount = () => {
     if (budgetSet) {
       return Number(totalSpentPercentage.toFixed(2));
     }
-
     return 0.00;
   }
 
