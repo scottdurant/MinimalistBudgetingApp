@@ -7,7 +7,7 @@ export default function AddPurchaseScreen({ navigation }) {
         budget: '',
         budgetSet: false,
         categoryName: '',
-        categoryAmountSpent: '',
+        categoryAmountSpent: 0,
         categoryAmountBudgeted: '',
     });
 
@@ -28,7 +28,6 @@ export default function AddPurchaseScreen({ navigation }) {
                 categoryName: categoryName,
                 categoryAmountBudgeted: categoryAmountBudgeted,
             });
-            //ToastAndroid.show('tap \"View Purchases\" to refresh categories', ToastAndroid.SHORT)
         }
     }
 
