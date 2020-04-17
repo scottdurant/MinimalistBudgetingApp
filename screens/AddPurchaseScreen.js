@@ -6,8 +6,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default function AddPurchaseScreen({ navigation }) {
     // send the description to ViewAllPurchasesScreen
     const submitHandler = (description, price, date, category) => {
+        debugger;
         if (description.length == 0) {
             alert('Please enter a description.');
+            return;
         }
         if (description[0] == ' ') {
             alert('Please enter a description.');
