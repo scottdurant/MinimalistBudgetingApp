@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, } from 'react-native';
+import { StyleSheet, Text, View, ToastAndroid } from 'react-native';
 import currency from 'currency.js';
 import Colors from '../constants/Colors';
 import { ProgressBarAndroid } from '@react-native-community/progress-bar-android';
@@ -27,6 +27,8 @@ export default function HomeScreen({ navigation, route }) {
   const updateTotalSpentPercentage = () => {
     if (budget != 0) {
       setTotalSpentPercentage(Number(total) / Number(budget));
+    } else {
+      ToastAndroid.show('Enter a budget on the budget tab!', ToastAndroid.SHORT)
     }
   }
 

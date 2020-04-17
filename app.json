@@ -32,7 +32,7 @@
       "package": "com.scottdurant.minimalistbudgetingapp",
       "versionCode": 1
     },
-    "description": "This app will help users manage their money.",
+    "description": "This app helps people budget their money. ",
     "githubUrl": "https://github.com/scottdurant/MinimalistBudgetingApp"
   }
 }
