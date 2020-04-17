@@ -1,24 +1,23 @@
 import * as React from 'react';
 import { StyleSheet, Text} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ListItem } from 'react-native-elements';
 import currency from 'currency.js';
 
 export default function PurchaseItem({ removeSpendingCategory, item }) {
     return (
-      <TouchableOpacity onPress={() => removeSpendingCategory(item.categoryName)}>
-        <Text style={styles.item}>{item.categoryName}    |      {currency(item.categoryAmountSpent, {formatWithSymbol: true}).format()}  /  {currency(item.categoryAmountBudgeted, {formatWithSymbol: true}).format()}</Text>   
-      </TouchableOpacity>
+      <ListItem
+        title={item.categoryName}
+        rightTitle={currency(item.categoryAmountSpent, {formatWithSymbol: true}).format()}
+        rightContentContainerStyle={styles.rightContentContainerStyle}
+        contentContainerStyle={styles.contentContainerStyle}
+        rightSubtitle={currency(item.categoryAmountBudgeted, {formatWithSymbol: true}).format()}
+        onPress={() => removeSpendingCategory(item.categoryName)}
+        topDivider
+        bottomDivider
+      />
    );
 }
 
 const styles = StyleSheet.create({
-  item: {
-    padding: 16,
-    marginTop: 16,
-    borderColor: '#bbb',
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 10,
-    fontFamily: 'quicksand'
-  },
+  
 });

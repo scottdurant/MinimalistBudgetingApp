@@ -3,6 +3,7 @@ import { StyleSheet, View, Keyboard, Button, ToastAndroid, Alert, Text } from 'r
 import { FlatList } from 'react-native-gesture-handler';
 import CategoryItem from '../components/CategoryItem';
 import PurchaseItem from '../components/PurchaseItem';
+import { format } from 'date-fns';
 import currency from 'currency.js';
 
 export default function ViewAllPurchasesScreen({ navigation, route }) {
@@ -31,7 +32,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const [showAllPurchases, setShowAllPurchases] = useState(true);
 
     const [purchases, setPurchases] = useState([
-        //{ description: 'groceries', price: '32', date: '', category: '',  key: '1' },
+        //{ description: 'Kroger', price: '32', date: new Date(), category: 'food',  key: '1' },
     ]);
 
     const [spendingCategories, setSpendingCategories] = useState([
@@ -69,7 +70,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
                 {
                     description: description,
                     price: price,
-                    date: date,
+                    date: format(new Date(date.toString()), 'MM/dd/yyyy'),
                     category: category,
                     key: key,
                 },
@@ -81,7 +82,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     const removePurchase = (key) => {
         var categoryToSubtractFrom = '';
         var amountToSubtract = '';
-        debugger;
         var i = 0;
         for (i = 0; i < purchases.length; i++) {
             if (purchases[i].key === key) {
@@ -247,7 +247,6 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
 
     const onPressToggle = () => {
         setShowAllPurchases(!showAllPurchases);
-        debugger;
         if (toggleButtonText === "View Spending Categories") {
             setToggleButtonText('View Purchases');
             setHeaderText('Categories');
