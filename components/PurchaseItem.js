@@ -17,7 +17,3 @@ export default function PurchaseItem({ removePurchase, item }) {
       />
    );
 }
-
-const styles = StyleSheet.create({
-  
-});

@@ -7,8 +7,9 @@ export default function AddPurchaseScreen({ navigation }) {
         budget: '',
         budgetSet: false,
         categoryName: '',
-        categoryAmountSpent: '',
+        categoryAmountSpent: 0,
         categoryAmountBudgeted: '',
+        categoryPercentSpent: 0.00,
     });
 
     const budgetSubmitHandler = (text) => {
@@ -22,13 +23,13 @@ export default function AddPurchaseScreen({ navigation }) {
         }
     }
 
-    const categorySubmitHandler = (categoryName, categoryAmountBudgeted) => {
+    const categorySubmitHandler = (categoryName, categoryAmountBudgeted, categoryPercentSpent) => {
         if (descriptionInputValid(categoryName) && priceInputValid(categoryAmountBudgeted)) {
             navigation.navigate('ViewAllPurchases', {
                 categoryName: categoryName,
                 categoryAmountBudgeted: categoryAmountBudgeted,
+                categoryPercentSpent: categoryPercentSpent,
             });
-            //ToastAndroid.show('tap \"View Purchases\" to refresh categories', ToastAndroid.SHORT)
         }
     }
 
