@@ -17,6 +17,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     // receive values from BudgetScreen
     const { categoryName } = route.params;
     const { categoryAmountBudgeted } = route.params;
+    const { categoryPercentSpent } = route.params;
 
 
     // lets us use categoryName as the key, so we don't interfere with key from purchases
@@ -100,6 +101,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         for (i = 0; i < spendingCategories.length; i++) {
             if (spendingCategories[i].categoryName === categoryToSubtractFrom) {
                 spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).subtract(currency(amountToSubtract));
+                spendingCategories[i].categoryPercentSpent = spendingCategories[i].categoryAmountSpent / spendingCategories[i].categoryAmountBudgeted;
             }
         }
 
@@ -122,6 +124,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
         var i = 0;
         for (i = 0; i < spendingCategories.length; i++) {
             spendingCategories[i].categoryAmountSpent = currency('0');
+            spendingCategories[i].categoryPercentSpent = 0;
         }
 
         navigation.navigate('Home', { total: 0 });
@@ -185,6 +188,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             for (i = 0; i < spendingCategories.length; i++) {
                 if (spendingCategories[i].categoryName === category) {
                     spendingCategories[i].categoryAmountSpent = currency(spendingCategories[i].categoryAmountSpent).add(currency(price));
+                    spendingCategories[i].categoryPercentSpent = spendingCategories[i].categoryAmountSpent / spendingCategories[i].categoryAmountBudgeted;
                     return true
                 }
             }
@@ -199,7 +203,8 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             return [
                 {
                     categoryName: categoryName,
-                    categoryAmountBudgeted: categoryAmountBudgeted
+                    categoryAmountBudgeted: categoryAmountBudgeted,
+                    categoryPercentSpent: categoryPercentSpent,
                 },
                 ...previousCategories
             ];

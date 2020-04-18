@@ -6,16 +6,7 @@ import Colors from '../constants/Colors';
 import { ProgressBarAndroid } from '@react-native-community/progress-bar-android';
 
 
-export default function PurchaseItem({ removeSpendingCategory, item }) {
-
-  const getCategoryPercentage = (spent, budgeted) => {
-    debugger;
-    if (budgeted != 0) {
-      var categoryPercent = Number(spent) / Number(budgeted);
-      return Number(categoryPercent.toFixed(2));
-    }
-    return 0.00;
-  }
+export default function CategoryItem({ removeSpendingCategory, item }) {
 
   return (
     <ListItem
@@ -25,8 +16,8 @@ export default function PurchaseItem({ removeSpendingCategory, item }) {
           <ProgressBarAndroid
             styleAttr="Horizontal"
             color={Colors.tintColor}
-            //indeterminate={false}
-            progress={getCategoryPercentage(item.categoryAmountSpent, item.categoryAmountBudgeted)}
+            indeterminate={false}
+            progress={item.categoryPercentSpent}
           />
         </View>
       }
