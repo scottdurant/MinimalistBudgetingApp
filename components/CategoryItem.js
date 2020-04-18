@@ -29,7 +29,3 @@ export default function CategoryItem({ removeSpendingCategory, item }) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-
-});

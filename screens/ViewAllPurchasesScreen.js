@@ -37,7 +37,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
     ]);
 
     const [spendingCategories, setSpendingCategories] = useState([
-        //{ categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50'}
+        //{ categoryName: 'gas', categoryAmountSpent: '20', categoryAmountBudgeted: '50', categoryPercentSpent: '0'}
     ])
 
 
@@ -127,7 +127,7 @@ export default function ViewAllPurchasesScreen({ navigation, route }) {
             spendingCategories[i].categoryPercentSpent = 0;
         }
 
-        navigation.navigate('Home', { total: 0 });
+        navigation.navigate('Home', { total: '0' });
     }
 
     const addAllPurchasesAfterRemoval = (keyToSkip) => {
