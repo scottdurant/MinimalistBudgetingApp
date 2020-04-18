@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback, Keyboard, View, } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, Keyboard, View, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import AddPurchase from '../components/AddPurchase';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function AddPurchaseScreen({ navigation }) {
     // send the description to ViewAllPurchasesScreen
-    const submitHandler = (description, price, date,) => {
+    const submitHandler = (description, price, date, category) => {
+        debugger;
         if (description.length == 0) {
             alert('Please enter a description.');
+            return;
         }
         if (description[0] == ' ') {
             alert('Please enter a description.');
@@ -25,19 +28,24 @@ export default function AddPurchaseScreen({ navigation }) {
             price: price,
             date: date,
             key: Math.random().toString(),
+            category: category
         });
     }
 
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <View style={styles.container}>
-                <View style={styles.content}>
-                    <AddPurchase submitHandler={submitHandler}  />
-                </View>
-            </View>
+            <SafeAreaView style={styles.container}>
+                <KeyboardAvoidingView behavior="padding">
+                    <ScrollView keyboardShouldPersistTaps="always">
+                        <View style={styles.content}>
+                            <AddPurchase submitHandler={submitHandler} />
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </SafeAreaView>
         </TouchableWithoutFeedback>
-    );
+   );
 }
 
 

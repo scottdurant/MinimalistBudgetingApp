@@ -11,11 +11,12 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "assets/images/launcher_icon_one.png",
     "scheme": "myapp",
+    "primaryColor": "#3366ff",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/images/money_splashscreen.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -27,7 +28,11 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "This app will help users manage their money.",
+    "android": {
+      "package": "com.scottdurant.minimalistbudgetingapp",
+      "versionCode": 1
+    },
+    "description": "This app helps people budget their money. ",
     "githubUrl": "https://github.com/scottdurant/MinimalistBudgetingApp"
   }
 }
