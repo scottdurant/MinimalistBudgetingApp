@@ -10,7 +10,7 @@ The main directories to look at are the `components` and `screens` directories. 
 The easiest way to run this app is to download the [Expo Client App](https://expo.io/tools) on your Android device from the Google Play Store. Then use the Expo Client App to scan the QR code found on the [Minimalist Budgeting App Expo Page](https://expo.io/@scottd/MinimalistBudgetingApp).
 
 
-Otherwise, follow these steps (adapted from the [React Native Getting Started Page](https://reactnative.dev/docs/getting-started)) if you want to run this app on your local machine for development/testing purposes. Check the React Native instructions if you run into problems.
+Alternatively, you can follow the below steps (adapted from the [React Native Getting Started Page](https://reactnative.dev/docs/getting-started)) if you want to run this app on your local machine for development/testing purposes. Check the React Native instructions if you run into problems.
 
 
 ### Prerequisites
@@ -60,9 +60,9 @@ You can also follow the more detailed [React Native CLI Quickstart](https://reac
 * [React Navigation](https://reactnavigation.org/)
 * [React Native Elements](https://react-native-elements.github.io/react-native-elements/)
 * [Visual Studio Code](https://code.visualstudio.com/)
-* [Currency.js](https://currency.js.org/)
+* [currency.js](https://currency.js.org/)
 * [date-fns](https://date-fns.org/)
-* [Android Asses Studio](https://romannurik.github.io/AndroidAssetStudio/index.html)
+* [Android Assets Studio](https://romannurik.github.io/AndroidAssetStudio/index.html)
 * [Quicksand Font Family](https://github.com/andrew-paglinawan/QuicksandFamily)
 * Spash screen photo by [Alexander Schimmeck on Unslapsh](https://unsplash.com/@alschim)
 
